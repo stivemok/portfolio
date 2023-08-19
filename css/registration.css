@@ -1,0 +1,68 @@
+body {
+    background-image: url('images/car.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #28113d;
+    line-height: 1.6;
+
+  }
+  
+  form {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: rgba(143, 141, 141, 0.8);
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #ebdede;
+    margin-top: 50px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    
+  }
+  
+  .form-group {
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="file"],
+  .form-group input[type="tel"],
+  .form-group input[type="email"],
+  .form-group input[type="number"],
+  .form-group select {
+    display: block;
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    color: #8280a0;
+  }
+  
+  .form-group input[type="submit"] {
+    display: block;
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .form-group input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
