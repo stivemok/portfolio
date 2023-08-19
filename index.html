@@ -10,17 +10,39 @@ tstrap@5.3.0/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dis\
 t/js/bootstrap.bundle.min.js"></script>
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    .carousel {
+        width: 700px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .carousel img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slides {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+</style>
 </head>
 
 <body>
-  <!-- This is a header of body. -->
+  <!-- This is a header of the body. -->
   <header> 
     <h1>Welcome to Easy Car Rentals</h1>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="vehicles.html">Vehicles</a></li>
-        <li><a href="#">Locations</a></li>
+        <li><a href="location.html">Locations</a></li>
         <li><a href="admin login.html">Admin login</a></li>
         <li><a href="registration.html">Vehicle registration</a></li>
         <li><a href="#">About</a></li>
@@ -28,6 +50,35 @@ t/js/bootstrap.bundle.min.js"></script>
     </nav>
   </header>
   <!-- This is a comment in HTML. -->
+    <div class="carousel">
+        <div class="slides">
+            <img src="images/compact.jpg" alt="Image 1">
+            <img src="images/compact_silver.jpg" alt="Image 2">
+            <img src="images/sedan.webp" alt="Image 3">
+            <img src="images/suv.jpeg" alt="Image 4">
+            <img src="images/suv_v8.jpg" alt="Image 5">
+            <img src="images/van.jfif" alt="Image 6">
+        </div>
+    </div>
+
+    <script>
+        const carousel = document.querySelector('.carousel');
+        const slides = carousel.querySelector('.slides');
+        const images = slides.querySelectorAll('img');
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            slides.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showSlide(currentIndex);
+        }
+
+        setInterval(nextSlide, 3000); // Auto-advance every 3 seconds
+    </script>
+
   <div class="Vehicle-listing container">
     <h2>Available Vehicles</h2>
     <input type="text" id="vehicle-search" class="form-control" placeholder="Search by vehicle type"
@@ -39,19 +90,18 @@ t/js/bootstrap.bundle.min.js"></script>
     <h2>Book a Vehicle</h2 <form action="#" method="post">
     <label for="pickup">Pick-up Date:</label><br>
     <input type="date" id="pickup" name="pickup"><br><br>
-    <label for="dropdown">Pickup Location:</label>
+    <label for="dropdown">Pickup Location</label>
     <select id="dropdown">
         <option value="Location1">Location 1</option>
         <option value="Location2">Location 2</option>
         <option value="Location3">Location 3</option>
     </select><br><br>
-    <label for="dropoff">Drop-off Date:</label><br>
+    <label for="dropoff">Drop-off Date</label><br>
     <input type="date" id="dropoff" name="dropoff"><br><br>
-    <label for="dropdown">Drop-off Location:</label>
+    <label for="dropdown">Drop-off Location</label>
     <select id="dropdown">
-        <option value="Location1">Location 1</option>
-        <option value="Location2">Location 2</option>
-        <option value="Location3">Location 3</option>
+        <option value="Location1">Easy Rentals Office</option>
+        <option value="Location2">ADD Airport</option>
     </select><br><br>  
     <label for="vehicle">Vehicle Type:</label><br>
     <select id="vehicle" name="vehicle">
@@ -62,17 +112,11 @@ t/js/bootstrap.bundle.min.js"></script>
       <option value="van">Van</option>
     </select><br><br>
       <!-- This is a comment in HTML. -->
-    <button type="submit" class="btn btn-primary">Submit Booking</button>
+    <button type="submit" class="btn btn-primary">Search Vehicle</button>
   </section>
   
   <script src="script.js"></script>
 
-  <!--
-  This script places a badge on your repl's full-browser view back to your repl's cover
-  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
-  teal, blue, blurple, magenta, pink!
-  -->
-  <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
 </body>
   <!-- This is a comment in HTML. -->
 <footer>
