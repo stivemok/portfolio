@@ -13,13 +13,16 @@ t/js/bootstrap.bundle.min.js"></script>
   <style>
     body {
         font-family: Arial, sans-serif;
-        text-align: center;
+        text-align: left;
     }
 
     .carousel {
-        width: 700px;
-        margin: 0 auto;
-        overflow: hidden;
+        width: 900px;
+        margin: 20px;
+        overflow: scroll;
+        float: right;
+        border-radius: 20px;
+        border-spacing: 10px;
     }
 
     .carousel img {
@@ -28,8 +31,9 @@ t/js/bootstrap.bundle.min.js"></script>
     }
 
     .slides {
+        margin-right: 30px;
         display: flex;
-        transition: transform 0.5s ease-in-out;
+        transition: transform 0.5s ease-in;
     }
 </style>
 </head>
@@ -52,57 +56,63 @@ t/js/bootstrap.bundle.min.js"></script>
   <!-- This is a comment in HTML. -->
     <div class="carousel">
         <div class="slides">
-            <img src="cars/" alt="Image 1">
-            <img src="cars/" alt="Image 2">
-            <img src="cars/" alt="Image 3">
-            <img src="cars/suv.jpeg" alt="Image 4">
-            <img src="cars/suv_v8.jpg" alt="Image 5">
-            <img src="cars/van.jfif" alt="Image 6">
+            <img src="cars/compact/swift 1.jpg" alt="swift">
+            <img src="cars/compact/swift 2.jfif" alt="swift">
+            <!--img src="cars/sedan/Hyundai Elantra 1.jfif" alt="Elantra">
+            <img src="cars/sedan/Hyundai Elantra 2.jfif" alt="Elantra"-->
+            <img src="cars/sedan/Suzuki dezier 1.jpg" alt="dezier">
+            <img src="cars/sedan/Suzuki dezier 2.jpg" alt="dezier">
+            <img src="cars/sedan/Toyota camrey.jpg" alt="camrey">
+            <!--img src="cars/van/starx 1.jfif" alt="starx">
+            <img src="cars/van/starx 2.jfif" alt="starx"-->
+            <!--img src="cars/suv/tucson 1.jfif" alt="tucson"-->
+            <img src="cars/suv/tuson 2.png" alt="tucson">
+            <img src="cars/suv/land cruser 1.jfif" alt="Land cruser">
+            <img src="cars/suv/land cruser 2.png" alt="Land cruser">
         </div>
     </div>
 
     <script>
-        const carousel = document.querySelector('.carousel');
-        const slides = carousel.querySelector('.slides');
-        const images = slides.querySelectorAll('img');
-        let currentIndex = 0;
+      const carousel = document.querySelector('.carousel');
+      const slides = carousel.querySelector('.slides');
+      const images = slides.querySelectorAll('img');
+      let currentIndex = 0;
 
-        function showSlide(index) {
-            slides.style.transform = `translateX(-${index * 100}%)`;
-        }
+      function showSlide(index) {
+          slides.style.transform = `translateX(-${index * 100}%)`;
+      }
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % images.length;
-            showSlide(currentIndex);
-        }
+      function nextSlide() {
+          currentIndex = (currentIndex + 1) % images.length;
+          showSlide(currentIndex);
+      }
 
-        setInterval(nextSlide, 3000); // Auto-advance every 3 seconds
-    </script>
+      setInterval(nextSlide, 3000); // Auto-advance every 3 seconds
+  </script>
 
-  <div class="Vehicle-listing container">
+  <!--div class="Vehicle-listing container">
     <h2>Available Vehicles</h2>
     <input type="text" id="vehicle-search" class="form-control" placeholder="Search by vehicle type"
       onkeyup="searchVehicles()">
     <button type="submit" class="btn btn-primary">Search Vehicle</button>
-  </div>
+  </div-->
   <!-- This is a comment in HTML. -->
   <section class="booking-form container">
-    <h2>Book a Vehicle</h2 <form action="#" method="post">
+    <h2>Book a Vehicle</h2> <form action="#" method="post">
     <label for="pickup">Pick-up Date:</label><br>
-    <input type="date" id="pickup" name="pickup"><br><br>
-    <label for="dropdown">Pickup Location</label>
-    <select id="dropdown">
-        <option value="Location1">Location 1</option>
-        <option value="Location2">Location 2</option>
-        <option value="Location3">Location 3</option>
-    </select><br><br>
-    <label for="dropoff">Drop-off Date</label><br>
-    <input type="date" id="dropoff" name="dropoff"><br><br>
-    <label for="dropdown">Drop-off Location</label>
+    <input type="date" id="pickup" name="pickup"><br>
+    <label for="dropdown">Pickup Location</label><br>
     <select id="dropdown">
         <option value="Location1">Easy Rentals Office</option>
         <option value="Location2">ADD Airport</option>
-    </select><br><br>  
+    </select><br>
+    <label for="dropoff">Drop-off Date</label><br>
+    <input type="date" id="dropoff" name="dropoff"><br>
+    <label for="dropdown">Drop-off Location</label><br>
+    <select id="dropdown">
+        <option value="Location1">Easy Rentals Office</option>
+        <option value="Location2">ADD Airport</option><br>
+    </select><br>  
     <label for="vehicle">Vehicle Type:</label><br>
     <select id="vehicle" name="vehicle">
       <option value="sedan">Sedan</option>
@@ -110,7 +120,7 @@ t/js/bootstrap.bundle.min.js"></script>
       <option value="suv">SUV</option>
       <option value="truck">Truck</option>
       <option value="van">Van</option>
-    </select><br><br>
+    </select>
       <!-- This is a comment in HTML. -->
     <button type="submit" class="btn btn-primary">Search Vehicle</button>
   </section>
@@ -120,11 +130,10 @@ t/js/bootstrap.bundle.min.js"></script>
 </body>
   <!-- This is a comment in HTML. -->
 <footer>
-  <div class="footer">
-    <p>2023 Easy Car Rentals.</p>
-    <li><a href="#">Contact us</a></li>
-    <li><a href="#">About</a></li>
-  </div>
+  <p>2023 Easy Car Rentals.</p>
+  <p>Contact us Email: info@easycarrental.com<br>
+                Phone: +251 (555) 123-4567<br>
+                Address: Addis Ababa Ethiopia</p>
 </footer>
 
 </html>
