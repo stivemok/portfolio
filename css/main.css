@@ -145,7 +145,7 @@ iframe {
   font-family: Poppins-Regular;
   font-size: 13px;
   line-height: 1.5;
-  color: #666666;
+  color: #e6eff0;
 }
 
 
@@ -180,8 +180,8 @@ iframe {
 
 .wrap-login100 {
   width: 960px;
-  background: #fff;
-  border-radius: 10px;
+  background-color: rgba(143, 141, 141, 0.8);
+  border-radius: 20px;
   overflow: hidden;
 
   display: -webkit-box;
