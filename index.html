@@ -5,37 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Easy Car Rentals</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boo\
-tstrap@5.3.0/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dis\
-t/js/bootstrap.bundle.min.js"></script>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-  <style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: left;
-    }
-
-    .carousel {
-        width: 900px;
-        margin: 20px;
-        overflow: scroll;
-        float: right;
-        border-radius: 20px;
-        border-spacing: 10px;
-    }
-
-    .carousel img {
-        width: 100%;
-        height: 100%;
-    }
-
-    .slides {
-        margin-right: 30px;
-        display: flex;
-        transition: transform 0.5s ease-in;
-    }
-</style>
+  <link href="css/index.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -72,42 +42,19 @@ t/js/bootstrap.bundle.min.js"></script>
         </div>
     </div>
 
-    <script>
-      const carousel = document.querySelector('.carousel');
-      const slides = carousel.querySelector('.slides');
-      const images = slides.querySelectorAll('img');
-      let currentIndex = 0;
-
-      function showSlide(index) {
-          slides.style.transform = `translateX(-${index * 100}%)`;
-      }
-
-      function nextSlide() {
-          currentIndex = (currentIndex + 1) % images.length;
-          showSlide(currentIndex);
-      }
-
-      setInterval(nextSlide, 3000); // Auto-advance every 3 seconds
-  </script>
-
-  <!--div class="Vehicle-listing container">
-    <h2>Available Vehicles</h2>
-    <input type="text" id="vehicle-search" class="form-control" placeholder="Search by vehicle type"
-      onkeyup="searchVehicles()">
-    <button type="submit" class="btn btn-primary">Search Vehicle</button>
-  </div-->
-  <!-- This is a comment in HTML. -->
+    <!-- This is a comment in HTML. -->
   <section class="booking-form container">
-    <h2>Book a Vehicle</h2> <form action="#" method="post">
+    <h2>Book a Vehicle</h2>
+    <form action="vehicles.html" method="get" id="bookingForm">
     <label for="pickup">Pick-up Date:</label><br>
-    <input type="date" id="pickup" name="pickup"><br>
+    <input type="date" id="pickup" name="pickup" required pattern="\d{4}-\d{2}-\d{2}"><br>
     <label for="dropdown">Pickup Location</label><br>
     <select id="dropdown">
         <option value="Location1">Easy Rentals Office</option>
         <option value="Location2">ADD Airport</option>
     </select><br>
     <label for="dropoff">Drop-off Date</label><br>
-    <input type="date" id="dropoff" name="dropoff"><br>
+    <input type="date" id="dropoff" name="dropoff" required pattern="\d{4}-\d{2}-\d{2}"><br>
     <label for="dropdown">Drop-off Location</label><br>
     <select id="dropdown">
         <option value="Location1">Easy Rentals Office</option>
@@ -125,15 +72,16 @@ t/js/bootstrap.bundle.min.js"></script>
     <button type="submit" class="btn btn-primary">Search Vehicle</button>
   </section>
   
-  <script src="script.js"></script>
+  <script src="js/index.js"></script>
 
 </body>
   <!-- This is a comment in HTML. -->
 <footer>
-  <p>2023 Easy Car Rentals.</p>
-  <p>Contact us Email: info@easycarrental.com<br>
-                Phone: +251 (555) 123-4567<br>
-                Address: Addis Ababa Ethiopia</p>
+  <p>2023 Easy Car Rentals.</p><br>
+  <p>|Contact us: <br>
+    |Email: info@easycarrentals.com<br>
+    |Phone: +251 (555) 123-4567<br>
+    |Address: Addis Ababa, Ethiopia</p>
 </footer>
 
 </html>
