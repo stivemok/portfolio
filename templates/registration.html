@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Car Rental Registration Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/registration.css">
+    <link href="static/vehicleregistration.css" rel="stylesheet" type="text/css" />
+    <header>
+      <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vehicles.html">Vehicles</a></li>
+            <li><a href="location.html">Locations</a></li>
+            <li><a href="admin login.html">Admin login</a></li>
+            <li><a href="vehicel_registration.html">Vehicle registration</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+  </header>
+  </head>
+  <body>
+    <h1>Car Rental Registration Form</h1>
+    <form action="#" method="post">
+      <div class="form-group">
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname" name="fname" >
+      </div>
+      <div class="form-group">
+        <label for="mname">Middle Name:</label>
+        <input type="text" id="mname" name="mname">
+      </div>
+      <div class="form-group">
+        <label for="lname">Last Name:</label>
+        <input type="text" id="lname" name="lname">
+      </div>
+      <div class="form-group">
+        <label for="idpassport">ID/Passport:</label>
+        <input type="file" id="idpassport" name="idpassport">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone">
+      </div>
+      <div class="form-group">
+        <label for="carreg">Car Registration:</label>
+        <input type="file" id="carreg" name="carreg">
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email">
+      </div>
+
+      <div class="form-group">
+        <label for="vehicle">Vehicle Type:</label>
+        <select id="vehicle" name="vehicle">
+          <option value="sedan">Sedan</option>
+          <option value="suv">SUV</option>
+          <option value="truck">Truck</option>
+          <option value="van">Van</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="year">Release Year:</label>
+        <input type="number" id="year" name="year" min="1900" max="2023">
+      </div>
+
+      <div class="form-group">
+        <input type="submit" value="Submit">
+      </div>
+        
+    </form>
+
+    <p id="output"></p>
+    <script src="static/vehicleregisteration.js"></script>
+  </body>
+
+</html>
+
