@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:hailmary@localhost/easy'
@@ -18,10 +19,46 @@ class FormData(db.Model):
     year = db.Column(db.Integer)
     idpassport = db.Column(db.String(255))
     carreg = db.Column(db.String(255))
+    submissionDate = db.Column(db.DateTime)
 
-@app.route('/vehicel')
-def registration():
-    return render_template('registration.html')
+@app.route('/easy')
+def home():
+    return render_template('index.html')
+
+@app.route('/vehicles')
+def vehicles():
+    return render_template('vehicles.html')
+
+@app.route('/location')
+def location():
+    return render_template('location.html')
+
+@app.route('/AdminLogin')
+def AdminLogin():
+    return render_template('AdminLogin.html')
+
+@app.route('/VehicelRegistration')
+def VehicelRegistration():
+    return render_template('VehicelRegistration.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/AmdinRegistration')
+def AmdinRegistration():
+    return render_template('AmdinRegistration.html')
+
+@app.route('/search-vehicle', methods=['POST'])
+def search_vehicle():
+    # Get the form data from the request
+    vehicle = request.form['vehicle']
+    # Query the database to retrieve data based on the form data
+
+    vehicles = FormData.query.filter_by(vehicle=vehicle).all()
+    # Return a response to the client
+    return 'Search results'
+
 
 @app.route('/submit-form', methods=['POST'])
 def submit_form():
@@ -37,7 +74,9 @@ def submit_form():
     # Get the values of the new form fields for ID/Passport and Car Registration
     idpassport = request.files['idpassport'].filename
     carreg = request.files['carreg'].filename
-
+    # Get the current date and time
+    currentDate = datetime.now()
+    
     # Create a new FormData object with the form data
     form_data = FormData(
         fname=fname,
@@ -48,7 +87,8 @@ def submit_form():
         vehicle=vehicle,
         year=year,
         idpassport=idpassport,
-        carreg=carreg
+        carreg=carreg,
+        submissionDate=currentDate
     )
 
     # Add the new FormData object to the database session and commit the changes

@@ -1,0 +1,81 @@
+body {
+    background-image: url('images/car.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #28113d;
+    line-height: 1.6;
+    border-radius: 10px;
+
+  }
+  
+  form {
+    max-width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(143, 141, 141, 0.8);
+    
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #ebdede;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    
+  }
+  
+  .form-group {
+    display: block;
+    margin-bottom: 5px;
+   
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="file"],
+  .form-group input[type="tel"],
+  .form-group input[type="email"],
+  .form-group input[type="number"],
+  .form-group select {
+    display: block;
+    width: 50%;
+    padding: 10px;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    color: #080808;
+    
+  }
+  
+  .form-group input[type="submit"] {
+    display: block;
+    width: 30%;
+    padding: 10px;
+    border-radius: 50px;
+    border: none;
+    background-color: #18c034;
+    color: rgb(88, 52, 52);
+    font-weight: bold;
+    
+  }
+  
+  .form-group input[type="submit"]:hover {
+    background-color: #a2c01e;
+    border-radius: 50px;
+  }
+
+  .form-group input[type="file"]{
+    background-color: #ffffff;
+    border-radius: 50px;
+    width: 80%;
+  }
