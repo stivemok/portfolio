@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import base64
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy'
@@ -51,15 +53,21 @@ def about():
 def AmdinRegistration():
     return render_template('AmdinRegistration.html')
 
+
 @app.route('/search-vehicle', methods=['POST'])
 def search_vehicle():
-    # Get the form data from the request
     vehicle = request.form['vehicle']
-    # Query the database to retrieve data based on the form data
-
     vehicles = FormData.query.filter_by(vehicle=vehicle).all()
-    # Return a response to the client
-    return 'Search results'
+
+    for vehicle in vehicles:
+        vehicle.photo1_base64 = base64.b64encode(vehicle.photo1).decode('utf-8')
+        vehicle.photo2_base64 = base64.b64encode(vehicle.photo2).decode('utf-8')
+
+    return render_template('searchResults.html', vehicles=vehicles)
+
+@app.route('/search-results', methods=['GET'])
+def display_search_results():
+    return render_template('searchResults.html')
 
 
 @app.route('/submit-form', methods=['POST'])

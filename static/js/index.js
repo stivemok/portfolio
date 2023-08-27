@@ -1,27 +1,23 @@
- // Add an event listener to the form submission
- document.getElementById("bookingForm").addEventListener("submit", function(event) {
-    // Get the selected values
-    const pickupDate = document.getElementById("pickup").value;
-    const pickupLocation = document.getElementById("pickupLocation").value;
-    const dropoffDate = document.getElementById("dropoff").value;
-    const dropoffLocation = document.getElementById("dropoffLocation").value;
-    const vehicleType = document.getElementById("vehicleType").value;
+// Wait for the document to be ready
+document.addEventListener("DOMContentLoaded", function () {
+    // Get a reference to the form element
+    var bookingForm = document.getElementById("bookingForm");
 
-    // Validate input
-    if (!pickupDate || !pickupLocation || !dropoffDate || !dropoffLocation || !vehicleType) {
-        alert("Please fill in all fields before submitting.");
-        event.preventDefault(); // Prevent the form submission
-        return;
-    }
+    // Add an event listener for form submission
+    bookingForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission
 
-    // Construct the query string
-    const queryString = `?pickupDate=${pickupDate}&pickupLocation=${pickupLocation}&dropoffDate=${dropoffDate}&dropoffLocation=${dropoffLocation}&vehicle=${vehicleType}`;
+        // Serialize the form data
+        var formData = new FormData(bookingForm);
 
-    // Redirect to vehicles.html with query parameters
-    window.location.href = `/vehicles${queryString}`;
+        // Construct the URL for the search results page
+        var searchResultsURL = "/search-results?" + new URLSearchParams(formData);
 
-    event.preventDefault(); // Prevent the default form submission
+        // Open the search results in a new tab
+        window.open(searchResultsURL, "_blank");
+    });
 });
+
 
 // carousel function
 const carousel = document.querySelector('.carousel');
