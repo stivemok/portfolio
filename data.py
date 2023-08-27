@@ -17,8 +17,10 @@ class FormData(db.Model):
     email = db.Column(db.String(255))
     vehicle = db.Column(db.String(255))
     year = db.Column(db.Integer)
-    idpassport = db.Column(db.String(255))
-    carreg = db.Column(db.String(255))
+    idpassport = db.Column(db.LargeBinary)
+    carreg = db.Column(db.LargeBinary)
+    photo1 = db.Column(db.LargeBinary)
+    photo2 = db.Column(db.LargeBinary)
     submissionDate = db.Column(db.DateTime)
 
 @app.route('/easy')
@@ -71,9 +73,11 @@ def submit_form():
     vehicle = request.form['vehicle']
     year = request.form['year']
 
-    # Get the values of the new form fields for ID/Passport and Car Registration
-    idpassport = request.files['idpassport'].filename
-    carreg = request.files['carreg'].filename
+    # Get the values of the new form fields for ID/Passport,Car Registration,car photo
+    idpassport = request.files['idpassport'].read()
+    carreg = request.files['carreg'].read()
+    photo1 = request.files['photo1'].read()
+    photo2 = request.files['photo2'].read()
     # Get the current date and time
     currentDate = datetime.now()
 
@@ -88,6 +92,8 @@ def submit_form():
         year=year,
         idpassport=idpassport,
         carreg=carreg,
+        photo1=photo1,
+        photo2=photo2,
         submissionDate=currentDate
     )
 
