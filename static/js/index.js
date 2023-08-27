@@ -18,7 +18,7 @@
     const queryString = `?pickupDate=${pickupDate}&pickupLocation=${pickupLocation}&dropoffDate=${dropoffDate}&dropoffLocation=${dropoffLocation}&vehicle=${vehicleType}`;
 
     // Redirect to vehicles.html with query parameters
-    window.location.href = `vehicles.html${queryString}`;
+    window.location.href = `/vehicles${queryString}`;
 
     event.preventDefault(); // Prevent the default form submission
 });

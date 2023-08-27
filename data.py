@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:hailmary@localhost/easy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy'
 db = SQLAlchemy(app)
 
 # Define a model for the database table
@@ -76,7 +76,7 @@ def submit_form():
     carreg = request.files['carreg'].filename
     # Get the current date and time
     currentDate = datetime.now()
-    
+
     # Create a new FormData object with the form data
     form_data = FormData(
         fname=fname,
@@ -98,4 +98,4 @@ def submit_form():
     return 'Data inserted successfully'
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000, debug=True)
