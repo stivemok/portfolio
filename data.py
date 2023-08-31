@@ -2,10 +2,16 @@ from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import base64
+from flask import session
+from flask import jsonify
+from flask import redirect
+from flask import url_for
+
+
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:hailmary@localhost/easy'
 db = SQLAlchemy(app)
 
 # Define a model for the database table
@@ -24,6 +30,33 @@ class FormData(db.Model):
     photo1 = db.Column(db.LargeBinary)
     photo2 = db.Column(db.LargeBinary)
     submissionDate = db.Column(db.DateTime)
+
+# Define a model for the booking table
+class Booking(db.Model):
+    __tablename__ = 'booking'
+    id = db.Column(db.Integer, primary_key=True)
+    pickup_date = db.Column(db.Date, nullable=False)
+    pickup_location = db.Column(db.String(255), nullable=False)
+    dropoff_date = db.Column(db.Date, nullable=False)
+    dropoff_location = db.Column(db.String(255), nullable=False)
+    vehicle_type = db.Column(db.String(255), nullable=False)
+
+    def __init__(self, pickup_date, pickup_location, dropoff_date, dropoff_location, vehicle_type):
+        self.pickup_date = pickup_date
+        self.pickup_location = pickup_location
+        self.dropoff_date = dropoff_date
+        self.dropoff_location = dropoff_location
+        self.vehicle_type = vehicle_type
+
+
+
+#This code defines a new User class that inherits from db.Model
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+
 
 @app.route('/easy')
 def home():
@@ -54,20 +87,62 @@ def AmdinRegistration():
     return render_template('AmdinRegistration.html')
 
 
+@app.route('/admin')
+def admin():
+    return render_template('AdminPage.html')
+
+#check if the provided email and password match
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.form['email']
+    password = request.form['password']
+    user = User.query.filter_by(email=email, password=password).first()
+    if user:
+        return 'success'
+    else:
+        return 'failure'
+
+#check if the password and comfirmpassword match and add new user in datanase
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['pass']
+        confirm_pass = request.form['confirm-pass']
+        if password == confirm_pass:
+            existing_user = User.query.filter_by(email=email).first()
+            if existing_user:
+                return 'Email already taken!'
+            else:
+                user = User(email=email, password=password)
+                db.session.add(user)
+                db.session.commit()
+                return 'Registration successful!'
+        else:
+            return 'Password and Confirm Password must be identical!'
+    return render_template('AmdinRegistration.html')
+
+#route for handling booking
 @app.route('/search-vehicle', methods=['POST'])
 def search_vehicle():
-    vehicle = request.form['vehicle']
-    vehicles = FormData.query.filter_by(vehicle=vehicle).all()
+    data = request.get_json()
+    pickup_date = data['pickup_date']
+    pickup_location = data['pickup_location']
+    dropoff_date = data['dropoff_date']
+    dropoff_location = data['dropoff_location']
+    vehicle_type = data['vehicle_type']
 
-    for vehicle in vehicles:
-        vehicle.photo1_base64 = base64.b64encode(vehicle.photo1).decode('utf-8')
-        vehicle.photo2_base64 = base64.b64encode(vehicle.photo2).decode('utf-8')
-
-    return render_template('searchResults.html', vehicles=vehicles)
-
-@app.route('/search-results', methods=['GET'])
-def display_search_results():
-    return render_template('searchResults.html')
+    # check if booking is available
+    booking = Booking.query.filter_by(pickup_date=pickup_date, pickup_location=pickup_location, dropoff_date=dropoff_date, dropoff_location=dropoff_location, vehicle_type=vehicle_type).first()
+    if booking:
+        # booking already exists
+        return jsonify({'status': 'error', 'message': 'Already booked'})
+    else:
+        # create new booking
+        new_booking = Booking(pickup_date=pickup_date, pickup_location=pickup_location, dropoff_date=dropoff_date, dropoff_location=dropoff_location, vehicle_type=vehicle_type)
+        db.session.add(new_booking)
+        db.session.commit()
+        return jsonify({'status': 'success', 'message': 'Successfully booked'})
 
 
 @app.route('/submit-form', methods=['POST'])

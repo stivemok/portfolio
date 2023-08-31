@@ -1,14 +1,32 @@
-/* document.querySelector('.login100-form-btn').addEventListener('click', function(event) {
-    event.preventDefault();
-    
-     redirect to admin page
-    window.location.href = 'file:///C:/Users/i/Desktop/portfolio/admin_page.html';
-    window.location.href = `../templates/AdminLogin.html${queryString}`;
-});
-// Add an event listener to the login button
-document.getElementById("loginButton").addEventListener("click", function() {
-    // Open admin_page.html in a new window or tab
-    window.open("admin_page.html", "_blank");
+$(document).ready(function() {
+    $('.login100-form').submit(function(event) {
+        event.preventDefault();
+        var email = $('input[name="email"]').val();
+        var password = $('input[name="pass"]').val();
+        $.ajax({
+            url: '/login',
+            data: {
+                email: email,
+                password: password
+            },
+            type: 'POST',
+            success: function(response) {
+                if (response == 'success') {
+                    showPopup();
+                    window.location.href = '/admin';
+                } else {
+                    alert('Invalid user name or password');
+                }
+            }
+        });
+    });
 });
 
-*/
+function showPopup() {
+    swal({
+        title: 'Login successful',
+        icon: 'success',
+        timer: 70000,
+        buttons: false
+    });
+}

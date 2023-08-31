@@ -1,20 +1,35 @@
-// Wait for the document to be ready
-document.addEventListener("DOMContentLoaded", function () {
-    // Get a reference to the form element
-    var bookingForm = document.getElementById("bookingForm");
-
-    // Add an event listener for form submission
-    bookingForm.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent form submission
-
-        // Serialize the form data
-        var formData = new FormData(bookingForm);
-
-        // Construct the URL for the search results page
-        var searchResultsURL = "/search-results?" + new URLSearchParams(formData);
-
-        // Open the search results in a new tab
-        window.open(searchResultsURL, "_blank");
+$(document).ready(function() {
+    $('#bookingForm').submit(function(event) {
+        event.preventDefault();
+        var pickupDate = $('#pickup-date').val();
+        var pickupLocation = $('#pickup-location').val();
+        var dropoffDate = $('#dropoff-date').val();
+        var dropoffLocation = $('#dropoff-location').val();
+        var vehicleType = $('#vehicle').val();
+        $.ajax({
+            url: '/search-vehicle',
+            data: JSON.stringify({
+                pickup_date: pickupDate,
+                pickup_location: pickupLocation,
+                dropoff_date: dropoffDate,
+                dropoff_location: dropoffLocation,
+                vehicle_type: vehicleType
+            }),
+            type: 'POST',
+            contentType: 'application/json;charset=UTF-8',
+            success: function(response) {
+                // handle successful response
+                if (response.status === 'error') {
+                    alert(response.message);
+                } else if (response.status === 'success') {
+                    alert(response.message);
+                }
+            },
+            error: function(error) {
+                // handle error
+                alert('An error occurred while searching for a vehicle. Please try again later.');
+            }
+        });
     });
 });
 
