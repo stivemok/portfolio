@@ -3,44 +3,18 @@
 <head>
     <link href="../static/css/vehicles.css" rel="stylesheet" type="text/css" />
     <title>Vehicle Selection</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-
-        h1 {
-            margin-top: 20px;
-        }
-
-        select {
-            padding: 8px;
-            font-size: 16px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            margin: 20px;
-        }
-
-        /* Hide all vehicle images by default */
-        #sedan-image, #compact-image, #suv-image, #van-image {
-            display: none;
-        }
-    </style>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-        	<li><a href="/easy">Home</a></li>
-        	<li><a href="/vehicles">Vehicles</a></li>
-        	<li><a href="/location">Locations</a></li>
-        	<li><a href="/AdminLogin">Admin login</a></li>
-        	<li><a href="/VehicelRegistration">Vehicle registration</a></li>
-        	<li><a href="/about">About</a></li>
-      	    </ul>
+                <li><a href="/easy">Home</a></li>
+                <li><a href="/vehicles">Vehicles</a></li>
+                <li><a href="/location">Locations</a></li>
+                <li><a href="/AdminLogin">Admin login</a></li>
+                <li><a href="/VehicelRegistration">Vehicle registration</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
         </nav>
     </header>
 
@@ -48,41 +22,83 @@
 
     <label for="vehicle-type">Choose a vehicle type:</label>
     <select id="vehicle-type">
-        <option value="sedan" selected>Sedan</option>
+        <option value="sedan">Sedan</option>
         <option value="compact">Compact</option>
         <option value="suv">SUV</option>
-        <option value="Truck">Truck</option>
+        <option value="truck">Truck</option>
         <option value="van">Van</option>
     </select>
+    <section class="vehicles">
+      <div id="sedan-image">
+	<article>
+	  <div class="slider-container1">
+	    <button class="prev-button" onclick="changeSlide(-1)">Previous</button>
+	    <img src="../static/css/cars/sedan/Elantra 1.webp" alt="Hyundai Elantra" class="slide" width="500" height="500">
+	    <img src="../static/css/cars/sedan/Elantra 2.jfif" alt="Hyundai Elantra" class="slide" width="500" height="500">
+	    <button class="next-button" onclick="changeSlide(1)">Next</button>
+	  </div>
+	  <div class="description">
+	    <h2>Description</h2>	  
+	    <div class="sedan1">Make: Hyundai</div>
+	    <div class="model">Model: Elantra</div>
+	    <div class="year">Year: 2015</div>
+	    <div class="condition">condition: Good</div>
+	    <div class="color">color: Silver</div>
+	    <div class="price">price: 47$/day</div>
+	    <button type="book" class="btn">Book Vehicle</button>
+	  </div>
+	</article>
+	<article>	
+	  <div class="slider-container2">
+	    <button class="prev-button2" onclick="changeSlide(-1)">Previous</button>
+	    <img src="../static/css/cars/sedan/Elantra grey 1.jfif" alt="Hyundai Elanta" class="slide2" width="500" height="500">
+            <img src="../static/css/cars/sedan/Elantra grey 2.jpg" alt="Hyundai Elantra" class="slide2" width="500" height="500">
+	    <button class="next-button2" onclick="changeSlide(1)">Next</button>
+	  </div>
+	  <div class="description2">
+            <h2>Description</h2>
+            <div class="sedan2">Make: Hyundai</div>
+            <div class="model2">Model: Elantra</div>
+            <div class="year2">Year: 2015</div>
+            <div class="condition2">condition: Good</div>
+            <div class="color2">color: Silver</div>
+            <div class="price2">price: 47$/day</div>
+            <button type="book" class="btn2">Book Vehicle</button>
+          </div>
+        </article>
+	
+        <img src="../static/css/cars/sedan/Suzuki dezier 2.jpeg" alt="Suzuki dezier" width="500" height="500">
+        <img src="../static/css/cars/sedan/Suzuki dezier 1.jpg" alt="Suzuki dezier" width="500" height="500">
 
-    <div id="sedan-image">
-        <img src="../static/css/cars/sedan/Hyundai Elantra 1.jfif" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/sedan/Hyundai Elantra 2.jfif" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/sedan/Suzuki dezier 1.jpg" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/sedan/Suzuki dezier 2.jpg" alt="Selected Vehicle" width="500" height="500">
     </div>
     <div id="compact-image">
-        <img src="../static/css/cars/compact/swift 1.jpg" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/compact/swift 3.jpg" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/compact/swift 2.jfif" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/compact/vitz 1.jfif" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/compact/vitz 2.jfif" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/compact/yaris 1.jfif" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/compact/yaris 2.jpg" alt="Selected Vehicle" width="500" height="500">
+        <img src="../static/css/cars/compact/swift 1.jpg" alt="Suzuki swift" width="500" height="500">
+        <img src="../static/css/cars/compact/swift 3.jpg" alt="Suzuki swift" width="500" height="500">
+        <img src="../static/css/cars/compact/swift 2.jfif" alt="Suzuki swift" width="500" height="500">
+        <img src="../static/css/cars/compact/vitz 1.jfif" alt="Toyota vitz" width="500" height="500">
+        <img src="../static/css/cars/compact/vitz 2.jfif" alt="Toyota vitz" width="500" height="500">
+        <img src="../static/css/cars/compact/yaris 1.jfif" alt="Toyota yaris" width="500" height="500">
+        <img src="../static/css/cars/compact/yaris 2.jpg" alt="Toyota yaris" width="500" height="500">
     </div>
     <div id="suv-image">
-        <img src="../static/css/cars/suv/land cruser 1.jfif" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/suv/land cruser 2.png" alt="Selected Vehicle" width="500" height="500">
+        <img src="../static/css/cars/suv/land cruser 1.jfif" alt="Landcruzer v8" width="500" height="500">
+        <img src="../static/css/cars/suv/land cruser 2.png" alt="Landcruzer v8" width="500" height="500">
+    </div>
+    <div id="truck-image">
+	<img src="../static/css/cars/truck/F150 white 1.jpg" alt="Ford 150" width="500" height="500">
+	<img src="../static/css/cars/truck/F150 white 2.jfif" alt="Ford 150" width="500" height="500">
     </div>
     <div id="van-image">
-        <img src="../static/css/cars/van/starx 1.jfif" alt="Selected Vehicle" width="500" height="500">
-        <img src="../static/css/cars/van/starx 2.jfif" alt="Selected Vehicle" width="500" height="500">
+        <img src="../static/css/cars/van/Hyundai starx 1.jfif" alt="Hayundai starx" width="500" height="500">
+        <img src="../static/css/cars/van/Hyundai starx 2.jpg" alt="Hyundai starx" width="500" height="500">
     </div>
-    <script>
+	</section>
+ <script>
         const vehicleTypeSelect = document.getElementById('vehicle-type');
         const sedanImage = document.getElementById('sedan-image');
         const compactImage = document.getElementById('compact-image');
         const suvImage = document.getElementById('suv-image');
+	const truckImage = document.getElementById('truck-image');
         const vanImage = document.getElementById('van-image');
 
         vehicleTypeSelect.addEventListener('change', () => {
@@ -91,6 +107,7 @@
             sedanImage.style.display = 'none';
             compactImage.style.display = 'none';
             suvImage.style.display = 'none';
+	    truckImage.style.display = 'none';
             vanImage.style.display = 'none';
 
             // Show the selected vehicle image container
@@ -100,14 +117,37 @@
                 compactImage.style.display = 'block';
             } else if (selectedVehicle === 'suv') {
                 suvImage.style.display = 'block';
+            } else if (selectedVehicle === 'truck') {
+                truckImage.style.display = 'block';
             } else if (selectedVehicle === 'van') {
-                vanImage.style.display = 'block';
-            }
+		vanImage.style.display = 'block';
+	    }	
         });
-	//
-	var selectElement = document.getElementById("vehicle-type");
-  	var displayElement = document.getElementById("sedan-image");
-  	;
+        //
+        var selectElement = document.getElementById("vehicle-type");
+        var displayElement = document.getElementById("sedan-image");
+        
+	let slideIndex = 0;
+const slides = document.querySelectorAll('.slide');
+
+function showSlide(n) {
+    if (n >= slides.length) {
+        slideIndex = 0;
+    } else if (n < 0) {
+        slideIndex = slides.length - 1;
+    }
+    
+    slides.forEach(slide => slide.style.display = 'none');
+    slides[slideIndex].style.display = 'block';
+}
+
+function changeSlide(n) {
+    slideIndex += n;
+    showSlide(slideIndex);
+}
+
+showSlide(slideIndex);
+
     </script>
-</body>
+  </body>
 </html>

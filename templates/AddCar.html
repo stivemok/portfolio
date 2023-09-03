@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Information Form</title>
+</head>
+<body>
+    <h1>Car Information Form</h1>
+    <form action="/submit_car" method="POST" enctype="multipart/form-data">
+        <label for="make">Make:</label>
+        <input type="text" name="make" id="make" required><br>
+
+        <label for="model">Model:</label>
+        <input type="text" name="model" id="model" required><br>
+
+        <label for="year">Year:</label>
+        <input type="number" name="year" id="year" required><br>
+
+        <label for="condition">Condition:</label>
+        <input type="text" name="condition" id="condition" required><br>
+
+        <label for="color">Color:</label>
+        <input type="text" name="color" id="color" required><br>
+
+        <label for="price">Price:</label>
+        <input type="text" name="price" id="price" required><br>
+
+        <label for="photo1">Photo 1:</label>
+        <input type="file" name="photo1" id="photo1" accept="image/*" required><br>
+
+        <label for="photo2">Photo 2:</label>
+        <input type="file" name="photo2" id="photo2" accept="image/*" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
