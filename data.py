@@ -31,6 +31,11 @@ class FormData(db.Model):
     photo2 = db.Column(db.LargeBinary)
     submissionDate = db.Column(db.DateTime)
 
+with app.app_context():
+    # Create all tables in the database which don't exist yet
+    db.create_all()
+
+
 # Define a model for the booking table
 class Booking(db.Model):
     __tablename__ = 'booking'
@@ -47,7 +52,10 @@ class Booking(db.Model):
         self.dropoff_date = dropoff_date
         self.dropoff_location = dropoff_location
         self.vehicle_type = vehicle_type
-
+        
+with app.app_context():
+    # Create all tables in the database which don't exist yet
+    db.create_all()
 
 
 #This code defines a new User class that inherits from db.Model
@@ -56,6 +64,67 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
+
+with app.app_context():
+    # Create all tables in the database which don't exist yet
+    db.create_all()
+
+class Car(db.Model):
+    __tablename__ = 'cars'
+
+    id = db.Column(db.Integer, primary_key=True)
+    make = db.Column(db.String(255))
+    model = db.Column(db.String(255))
+    year = db.Column(db.Integer)
+    color = db.Column(db.String(255))
+    available = db.Column(db.Boolean, default=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'make': self.make,
+            'model': self.model,
+            'year': self.year,
+            'color': self.color,
+            'available': self.available
+        }
+
+with app.app_context():
+    # Create all tables in the database which don't exist yet
+    db.create_all()
+
+
+class PaymentMethod(db.Model):
+    __tablename__ = 'payment_methods'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    description = db.Column(db.Text)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description
+        }
+
+with app.app_context():
+    # Create all tables in the database which don't exist yet
+    db.create_all()
+
+with app.app_context():
+    # add payment methods to the database if they don't already exist
+    db.create_all()
+    if not PaymentMethod.query.filter_by(name='Credit Card').first():
+        credit_card = PaymentMethod(name='Credit Card', description='Pay with your credit card')
+        db.session.add(credit_card)
+    if not PaymentMethod.query.filter_by(name='Debit Card').first():
+        debit_card = PaymentMethod(name='Debit Card', description='Pay with your debit card')        
+        db.session.add(debit_card)
+    if not PaymentMethod.query.filter_by(name='PayPal').first():
+        paypal = PaymentMethod(name='PayPal', description='Pay with your PayPal account')
+        db.session.add(paypal)
+    db.session.commit()
 
 
 @app.route('/easy')
@@ -91,6 +160,24 @@ def AmdinRegistration():
 def admin():
     return render_template('AdminPage.html')
 
+@app.route('/available-cars')
+def available_cars():
+    cars = Car.query.filter_by(available=True).all()
+    return render_template('AvailableCars.html', cars=cars)
+
+@app.route('/payment-methods')
+def payment_methods():
+    # retrieve available payment methods from the database
+    payment_methods = PaymentMethod.query.all()
+    payment_methods_list = [method.to_dict() for method in payment_methods]
+    return render_template('PaymentMethods.html', payment_methods=payment_methods_list)
+
+@app.route('/process-payment', methods=['POST'])
+def process_payment():
+    # Your code for processing the payment goes here
+    return render_template('PaymentConfirmation.html')
+
+
 #check if the provided email and password match
 @app.route('/login', methods=['POST'])
 def login():
@@ -123,6 +210,7 @@ def register():
     return render_template('AmdinRegistration.html')
 
 #route for handling booking
+
 @app.route('/search-vehicle', methods=['POST'])
 def search_vehicle():
     data = request.get_json()
@@ -133,16 +221,22 @@ def search_vehicle():
     vehicle_type = data['vehicle_type']
 
     # check if booking is available
-    booking = Booking.query.filter_by(pickup_date=pickup_date, pickup_location=pickup_location, dropoff_date=dropoff_date, dropoff_location=dropoff_location, vehicle_type=vehicle_type).first()
+    booking = Booking.query.filter_by(pickup_date=pickup_date, pickup_location=pickup_location, dropoff_date=dropoff_date, dropoff_location=dropoff_location).first()
     if booking:
-        # booking already exists
-        return jsonify({'status': 'error', 'message': 'Already booked'})
+        # booking already existsBB
+        available_cars = Car.query.filter_by(available=True).all()
+        available_cars_list = [car.to_dict() for car in available_cars]
+        return jsonify({'status': 'error', 'message': 'Already booked', 'available_cars': available_cars_list})
     else:
         # create new booking
         new_booking = Booking(pickup_date=pickup_date, pickup_location=pickup_location, dropoff_date=dropoff_date, dropoff_location=dropoff_location, vehicle_type=vehicle_type)
         db.session.add(new_booking)
         db.session.commit()
-        return jsonify({'status': 'success', 'message': 'Successfully booked'})
+        payment_methods = PaymentMethod.query.all()
+        payment_methods_list = [method.to_dict() for method in payment_methods]
+        return jsonify({'status': 'success', 'message': 'process payment method', 'payment_methods': payment_methods_list})
+
+
 
 
 @app.route('/submit-form', methods=['POST'])

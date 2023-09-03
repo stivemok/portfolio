@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Payment Methods</title>
+    </head>
+    <body>
+        <h1>Payment Methods</h1>
+        <form action="{{ url_for('process_payment') }}" method="POST">
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="first_name" required><br><br>
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="last_name" required><br><br>
+            <label for="id-card">ID Card:</label>
+            <input type="text" id="id-card" name="id_card" required><br><br>
+            <h2>Select a Payment Method:</h2>
+            {% for method in payment_methods %}
+                <input type="radio" id="{{ method['name'] }}" name="payment_method" value="{{ method['id'] }}" required>
+                <label for="{{ method['name'] }}">{{ method['name'] }}</label><br>
+                <p>{{ method['description'] }}</p><br>
+            {% endfor %}
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

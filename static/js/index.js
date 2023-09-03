@@ -21,7 +21,9 @@ $(document).ready(function() {
                 // handle successful response
                 if (response.status === 'error') {
                     alert(response.message);
+                    window.location.href = '/available-cars';
                 } else if (response.status === 'success') {
+                    window.location.href = '/payment-methods';
                     alert(response.message);
                 }
             },
