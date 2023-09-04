@@ -250,6 +250,36 @@ def search_vehicle():
         return jsonify({'status': 'success', 'message': 'process payment method', 'payment_methods': payment_methods_list})
 
 
+@app.route('/get-images', methods=['POST'])
+def get_images():
+    index = request.form['index']
+    car = Car.query.get(index)
+    if car:
+        image_data1 = car.photo1
+        image_src1 = f"data:image/jpeg;base64,{base64.b64encode(image_data1).decode('utf-8')}"
+        image_data2 = car.photo2
+        image_src2 = f"data:image/jpeg;base64,{base64.b64encode(image_data2).decode('utf-8')}"
+        return jsonify({'imageSrc1': image_src1, 'imageSrc2': image_src2})
+    else:
+        return jsonify({'error': 'Car not found'})
+
+
+@app.route('/get-vehicle-info', methods=['POST'])
+def get_vehicle_info():
+    index = request.form['index']
+    car = Car.query.get(index)
+    if car:
+        make = car.make
+        model = car.model
+        year = car.year
+        condition = car.condition
+        color = car.color
+        price = car.price
+        return jsonify({'make': make, 'model': model, 'year': year, 'condition': condition, 'color': color, 'price': price})
+    else:
+        return jsonify({'error': 'Car not found'})
+
+
 
 
 @app.route('/submit-form', methods=['POST'])
