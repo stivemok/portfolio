@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="../static/css/vehicles.css" rel="stylesheet" type="text/css" />
+    <title>Vehicle Selection</title>
+    <style>
+        /* Add your CSS styles here if needed */
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/easy">Home</a></li>
+                <li><a href="/vehicles">Vehicles</a></li>
+                <li><a href="/location">Locations</a></li>
+                <li><a href="/AdminLogin">Admin login</a></li>
+                <li><a href="/VehicelRegistration">Vehicle registration</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Select a Vehicle Type</h1>
+
+    <label for="vehicle-type">Choose a vehicle type:</label>
+    <select id="vehicle-type">
+        <option value="sedan">Sedan</option>
+        <option value="compact">Compact</option>
+        <option value="suv">SUV</option>
+        <option value="truck">Truck</option>
+        <option value="van">Van</option>
+    </select>
+
+    <!-- Sedan Image and Description -->
+    <section id="sedan-image" class="vehicles">
+        <!-- Slider for Sedan Images -->
+        <div class="slider-container1">
+            <button class="prev-button" onclick="changeSlide(-1)">Previous</button>
+            <img src="../static/css/cars/sedan/Elantra 1.webp" alt="Hyundai Elantra" class="slide" width="500" height="500">
+            <img src="../static/css/cars/sedan/Elantra 2.jfif" alt="Hyundai Elantra" class="slide" width="500" height="500">
+            <button class="next-button" onclick="changeSlide(1)">Next</button>
+        </div>
+
+        <!-- Description for Sedan -->
+        <div class="description">
+            <h2>Description</h2>
+            <div class="sedan1">Make: Hyundai</div>
+            <div class="model">Model: Elantra</div>
+            <div class="year">Year: 2015</div>
+            <div class="condition">Condition: Good</div>
+            <div class="color">Color: Silver</div>
+            <div class="price">Price: 47$/day</div>
+            <button type="book" class="btn">Book Vehicle</button>
+        </div>
+    </section>
+
+    <!-- Other Vehicle Types' Images (Add similar sections for other vehicle types) -->
+	 <section id="sedan-image" class="vehicles">
+        <!-- Slider for Sedan Images -->
+        <div class="slider-container1">
+            <button class="prev-button" onclick="changeSlide(-1)">Previous</button>
+            <img src="../static/css/cars/sedan/Elantra grey 1.jfif" alt="Hyundai Elantra" class="slide" width="500" height="500">
+            <img src="../static/css/cars/sedan/Elantra grey 2.jpg" alt="Hyundai Elantra" class="slide" width="500" height="500">
+            <button class="next-button" onclick="changeSlide(1)">Next</button>
+        </div>
+
+        <!-- Description for Sedan -->
+        <div class="description">
+            <h2>Description</h2>
+            <div class="sedan1">Make: Hyundai</div>
+            <div class="model">Model: Elantra</div>
+            <div class="year">Year: 2015</div>
+            <div class="condition">Condition: Good</div>
+            <div class="color">Color: Gray</div>
+            <div class="price">Price: 47$/day</div>
+            <button type="book" class="btn">Book Vehicle</button>
+        </div>
+    </section>
+
+    <script>
+        const vehicleTypeSelect = document.getElementById('vehicle-type');
+        const sedanImage = document.getElementById('sedan-image');
+        // Add more elements for other vehicle types as needed
+
+        vehicleTypeSelect.addEventListener('change', () => {
+            const selectedVehicle = vehicleTypeSelect.value;
+
+            // Hide all vehicle image containers
+            sedanImage.style.display = 'none';
+            // Hide other vehicle type containers here
+
+            // Show the selected vehicle image container
+            if (selectedVehicle === 'sedan') {
+                sedanImage.style.display = 'block';
+            }
+            // Show other vehicle type containers here
+        });
+
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(n) {
+            if (n >= slides.length) {
+                slideIndex = 0;
+            } else if (n < 0) {
+                slideIndex = slides.length - 1;
+            }
+
+            slides.forEach(slide => slide.style.display = 'none');
+            slides[slideIndex].style.display = 'block';
+        }
+
+        function changeSlide(n) {
+            slideIndex += n;
+            showSlide(slideIndex);
+        }
+
+        showSlide(slideIndex);
+    </script>
+</body>
+</html>

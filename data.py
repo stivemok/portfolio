@@ -11,7 +11,7 @@ from flask import url_for
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:hailmary@localhost/easy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy'
 db = SQLAlchemy(app)
 
 # Define a model for the database table
@@ -67,7 +67,7 @@ class Booking(db.Model):
         self.dropoff_date = dropoff_date
         self.dropoff_location = dropoff_location
         self.vehicle_type = vehicle_type
-        
+
 with app.app_context():
     # Create all tables in the database which don't exist yet
     db.create_all()
@@ -84,6 +84,7 @@ with app.app_context():
     # Create all tables in the database which don't exist yet
     db.create_all()
 
+
 class photo(db.Model):
     __tablename__ = 'photo'
     CarId = db.Column(db.Integer, primary_key=True)
@@ -95,6 +96,7 @@ class photo(db.Model):
     submissionDate = db.Column(db.DateTime)
     CustomerId = db.Column(db.Integer, db.ForeignKey('vregister.CustomerId'))
     AdminId = db.Column(db.Integer, db.ForeignKey('vehicle.AdminId'))
+
 
 
 with app.app_context():
@@ -163,6 +165,9 @@ def about():
 def AmdinRegistration():
     return render_template('AmdinRegistration.html')
 
+@app.route('/AddCar')
+def AddCar():
+    return render_template('AddCar.html')
 
 @app.route('/admin')
 def admin():
@@ -176,7 +181,7 @@ def addcar():
 @app.route('/available-cars')
 def available_cars():
     cars = Car.query.filter_by(available=True).all()
-    return render_template('AvailableCars.html', cars=cars)
+    return render_template('AvailableCars.html', vehicle=vehicle)
 
 @app.route('/payment-methods')
 def payment_methods():

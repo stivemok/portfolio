@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easy Car Rentals</title>
+  <link href="../static/css/BookVehicle.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <!-- This is a header of the body. -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/easy">Home</a></li>
+        <li><a href="/vehicles">Vehicles</a></li>
+        <li><a href="/location">Locations</a></li>
+        <li><a href="/VehicelRegistration">Vehicle registration</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="booking-form container">
+      <h2>Book a Vehicle</h2>
+      <form action="/search-vehicle" method="POST" id="bookingForm">
+      <label for="pickup">Pick-up Date:</label><br>
+      <input type="date" id="pickup-date" name="pickup" required pattern="\d{4}-\d{2}-\d{2}"><br>
+      <label for="dropdown">Pickup Location</label><br>
+      <select id="pickup-location">
+          <option value="Easy Rentals Office">Easy Rentals Office</option>
+          <option value="ADD Airport">ADD Airport</option>
+      </select><br>
+      <label for="dropoff">Drop-off Date</label><br>
+      <input type="date" id="dropoff-date" name="dropoff" required pattern="\d{4}-\d{2}-\d{2}"><br>
+      <label for="dropdown">Drop-off Location</label><br>
+      <select id="dropoff-location">
+          <option value="Easy Rentals Office">Easy Rentals Office</option>
+          <option value="ADD Airport">ADD Airport</option><br>
+      </select><br>
+      <button type="submit" class="btn btn-primary">Book Vehicle</button>
+    </section>
+</body>
+</html>
