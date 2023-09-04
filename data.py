@@ -17,19 +17,34 @@ db = SQLAlchemy(app)
 # Define a model for the database table
 class FormData(db.Model):
     __tablename__ = 'vregister'
-    id = db.Column(db.Integer, primary_key=True)
+    CustomerId = db.Column(db.Integer, primary_key=True)
     fname = db.Column(db.String(255))
     mname = db.Column(db.String(255))
     lname = db.Column(db.String(255))
     phone = db.Column(db.String(255))
     email = db.Column(db.String(255))
-    vehicle = db.Column(db.String(255))
     year = db.Column(db.Integer)
-    idpassport = db.Column(db.LargeBinary)
-    carreg = db.Column(db.LargeBinary)
-    photo1 = db.Column(db.LargeBinary)
-    photo2 = db.Column(db.LargeBinary)
+    idpassport = db.Column(db.LargeBinary((2**32)-1))
     submissionDate = db.Column(db.DateTime)
+
+with app.app_context():
+    # Create all tables in the database which don't exist yet
+    db.create_all()
+
+
+class Car(db.Model):
+    __tablename__ = 'vehicle'
+
+    AdminId = db.Column(db.Integer, primary_key=True)
+    make = db.Column(db.String(255))
+    model = db.Column(db.String(255))
+    year = db.Column(db.Integer)
+    condition = db.Column(db.String(255))
+    price = db.Column(db.String(255))
+    color = db.Column(db.String(255))
+    photo1 = db.Column(db.LargeBinary((2**32)-1))
+    photo2 = db.Column(db.LargeBinary((2**32)-1))
+    available = db.Column(db.Boolean, default=True)
 
 with app.app_context():
     # Create all tables in the database which don't exist yet
@@ -69,33 +84,20 @@ with app.app_context():
     # Create all tables in the database which don't exist yet
     db.create_all()
 
-class Car(db.Model):
-    __tablename__ = 'vehicle'
 
-    id = db.Column(db.Integer, primary_key=True)
-    make = db.Column(db.String(255))
-    model = db.Column(db.String(255))
+class photo(db.Model):
+    __tablename__ = 'photo'
+    CarId = db.Column(db.Integer, primary_key=True)
+    vehicle = db.Column(db.String(255))
     year = db.Column(db.Integer)
-    condition = db.Column(db.String(255))
-    color = db.Column(db.String(255))
-    price = db.Column(db.String(255))
-    photo1 = db.Column(db.LargeBinary)
-    photo2 = db.Column(db.LargeBinary)
-    available = db.Column(db.Boolean, default=True)
+    carreg = db.Column(db.LargeBinary((2**32)-1))
+    photo1 = db.Column(db.LargeBinary((2**32)-1))
+    photo2 = db.Column(db.LargeBinary((2**32)-1))
+    submissionDate = db.Column(db.DateTime)
+    CustomerId = db.Column(db.Integer, db.ForeignKey('vregister.CustomerId'))
+    AdminId = db.Column(db.Integer, db.ForeignKey('vehicle.AdminId'))
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'make': self.make,
-            'model': self.model,
-            'year': self.year,
-	    'condition': self.condition,
-            'color': self.color,
-	    'price': self.price,
-	    'photo1': self.photo1,
-	    'photo2': self.photo2,
-            'available': self.available
-        }
+
 
 with app.app_context():
     # Create all tables in the database which don't exist yet
@@ -170,6 +172,11 @@ def AddCar():
 @app.route('/admin')
 def admin():
     return render_template('AdminPage.html')
+
+@app.route('/AddCar')
+def addcar():
+    return render_template('AddCar.html')
+
 
 @app.route('/available-cars')
 def available_cars():
@@ -276,20 +283,54 @@ def submit_form():
         lname=lname,
         phone=phone,
         email=email,
-        vehicle=vehicle,
-        year=year,
         idpassport=idpassport,
+        submissionDate=currentDate
+    )
+
+# Add the new FormData object to the database session and commit the changes
+    db.session.add(form_data)
+    db.session.commit()
+
+    return 'Data inserted successfully'
+   
+    Photo = photo(
+        year=year,
+        vehicle=vehicle,
         carreg=carreg,
         photo1=photo1,
         photo2=photo2,
         submissionDate=currentDate
     )
 
-    # Add the new FormData object to the database session and commit the changes
-    db.session.add(form_data)
+
+    db.session.add(photo)
     db.session.commit()
 
     return 'Data inserted successfully'
+
+
+@app.route('/submit_car', methods=['POST'])
+def submit_car():
+    make = request.form['make']
+    model = request.form['model']
+    year = request.form['year']
+    condition = request.form['condition']
+    color = request.form['color']
+    price = request.form['price']
+
+    # Get the uploaded files for Car Photo 1 and Car Photo 2
+    photo1 = request.files['photo1'].read()
+    photo2 = request.files['photo2'].read()
+
+
+    # Create a new Car object and add it to the database
+    car = Car(make=make, model=model, year=year, condition=condition, color=color, price=price, photo1=photo1, photo2=photo2)
+    db.session.add(car)
+    db.session.commit()
+
+    return {'success': True}
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
