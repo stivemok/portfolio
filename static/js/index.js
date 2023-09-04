@@ -53,4 +53,4 @@ const carousel = document.querySelector('.carousel');
 
       setInterval(nextSlide, 3000); // Auto-advance every 3 seconds
 
-      // 
+

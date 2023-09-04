@@ -11,7 +11,7 @@ from flask import url_for
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:hailmary@localhost/easy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy'
 db = SQLAlchemy(app)
 
 # Define a model for the database table
@@ -52,7 +52,7 @@ class Booking(db.Model):
         self.dropoff_date = dropoff_date
         self.dropoff_location = dropoff_location
         self.vehicle_type = vehicle_type
-        
+
 with app.app_context():
     # Create all tables in the database which don't exist yet
     db.create_all()
@@ -70,13 +70,17 @@ with app.app_context():
     db.create_all()
 
 class Car(db.Model):
-    __tablename__ = 'cars'
+    __tablename__ = 'vehicle'
 
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(255))
     model = db.Column(db.String(255))
     year = db.Column(db.Integer)
+    condition = db.Column(db.String(255))
     color = db.Column(db.String(255))
+    price = db.Column(db.String(255))
+    photo1 = db.Column(db.LargeBinary)
+    photo2 = db.Column(db.LargeBinary)
     available = db.Column(db.Boolean, default=True)
 
     def to_dict(self):
@@ -85,7 +89,11 @@ class Car(db.Model):
             'make': self.make,
             'model': self.model,
             'year': self.year,
+	    'condition': self.condition,
             'color': self.color,
+	    'price': self.price,
+	    'photo1': self.photo1,
+	    'photo2': self.photo2,
             'available': self.available
         }
 
@@ -155,6 +163,9 @@ def about():
 def AmdinRegistration():
     return render_template('AmdinRegistration.html')
 
+@app.route('/AddCar')
+def AddCar():
+    return render_template('AddCar.html')
 
 @app.route('/admin')
 def admin():
@@ -163,7 +174,7 @@ def admin():
 @app.route('/available-cars')
 def available_cars():
     cars = Car.query.filter_by(available=True).all()
-    return render_template('AvailableCars.html', cars=cars)
+    return render_template('AvailableCars.html', vehicle=vehicle)
 
 @app.route('/payment-methods')
 def payment_methods():

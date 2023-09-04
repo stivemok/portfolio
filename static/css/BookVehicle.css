@@ -1,0 +1,68 @@
+header {
+    background-color: orange;
+    color: darkblue;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: darkblue;
+}
+
+.booking-form {
+    background-color: rgba(201, 195, 195, 0.788);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    box-sizing: border-box; /*Doesnt work=>prevents overflow of form padding and border*/
+    border: 1px solid #ccc;
+    margin-left: 0;
+}
+
+.booking-form h2 {
+    text-align: center;
+}
+
+.booking-form label {
+    font-weight: bold;
+}
+
+.booking-form select {
+    width: 76%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #b4b0b0;
+    border-radius: 4px;
+}
+.booking-form input[type="date"] {
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #b4b0b0;
+     border-radius: 4px;
+}
+
+.booking-form button {
+    display: block;
+    width: 50%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: auto;
+}
