@@ -30,51 +30,13 @@ h1 {
 	margin-top: 20px;
 }
 
-.vehicles article {
-	width: 900px;
-	padding: 20px;
-	margin: 20px;
-	border: 1px solid #FF5A5F;
-	display: inline-block;
-}
-
-.vehicles h2 {
-	margin-top: -90px;
-	text-align: right;
-}
-.sedan1, .sedan2,
-.model, .model2,
-.year, .year2, 
-.condition, .condition2,
-.color, .color2,
-.price, .price2 {
-	text-align: right;
-}
-
-.btn, .btn2 {
-	float: right;
-	background-color: #007bff;
-	color: white;
-	width: 15%;
-	display: block;
-	padding: 8px;
-    	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
 select {
 	padding: 8px;
 	font-size: 16px;
 }
 
-.vehicles img {
-	max-width: 100%;
-    	height: auto;
-	float: left;
-       	margin-left: 70px;
-	margin-top: 20;
-}
 
+<<<<<<< HEAD
 /* Hide all vehicle images by default */
 #sedan-image, #compact-image, #suv-image, #van-image {
        	display: sedan;
@@ -96,25 +58,5 @@ select {
     height: auto;
 }
 
-.img1prev-button, .img1next-button,
-.img2prev-button, .img2next-button, 
-.img3prev-button, .img3next-button {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
 
-.img1prev-button, .img2prev-button, .img3prev-button {
-	left: -50%;
-	margin-left: -130px;
-	margin-top: 90px;
-}
-
-.img1next-button, .img2next-button, .img3next-button {
-    right: 0;
 }
