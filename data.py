@@ -360,7 +360,11 @@ def submit_car():
 
     return {'success': True}
 
-
+#manage-user for admin page 
+@app.route('/manageuser')
+def manageuser():
+    users = User.query.all()
+    return render_template('manage-user.html', users=users)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
