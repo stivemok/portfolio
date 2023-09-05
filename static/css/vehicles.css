@@ -96,8 +96,9 @@ select {
     height: auto;
 }
 
-.prev-button, .next-button,
-.prev-button2, .next-button2 {
+.img1prev-button, .img1next-button,
+.img2prev-button, .img2next-button, 
+.img3prev-button, .img3next-button {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -108,12 +109,12 @@ select {
     cursor: pointer;
 }
 
-.prev-button, .prev-button2 {
+.img1prev-button, .img2prev-button, .img3prev-button {
 	left: -50%;
 	margin-left: -130px;
 	margin-top: 90px;
 }
 
-.next-button, .next-button2 {
+.img1next-button, .img2next-button, .img3next-button {
     right: 0;
 }
