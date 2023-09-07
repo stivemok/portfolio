@@ -33,4 +33,3 @@ function updateDescription(index) {
 function updateSlideAndDescription(direction) {
   changeSlide(direction);
 }
-
