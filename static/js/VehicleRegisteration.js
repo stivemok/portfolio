@@ -8,7 +8,12 @@ document.addEventListener('DOMContentLoaded', function() {
         let email = document.querySelector('#email').value;
         let vehicle = document.querySelector('#vehicle').value;
         let year = document.querySelector('#year').value;
-
+        let PlateNo = document.querySelector('#PlateNo').value;
+        let make = document.querySelector('#make').value;
+        let model = document.querySelector('#model').value;
+        let color = document.querySelector('#color').value;
+        let price = document.querySelector('#price').value;
+        let condition = document.querySelector('#condition').value;
         // Get the values of the new form fields for ID/Passport and Car Registration
         let idpassport = document.querySelector('#idpassport').files[0];
         let carreg = document.querySelector('#carreg').files[0];
@@ -26,10 +31,16 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('email', email);
         formData.append('vehicle', vehicle);
         formData.append('year', year);
-
+	formData.append('PlateNo', PlateNo);
+        formData.append('make', make);
+        formData.append('model', model);
+        formData.append('color', color);
+        formData.append('price', price);
+        formData.append('condition', condition);
         // Append the values of the new form fields for ID/Passport and Car Registration to the FormData object
         if (idpassport) {
             formData.append('idpassport', idpassport, idpassport.name);
+
         }
         
         if (carreg) {
@@ -61,7 +72,11 @@ document.addEventListener('DOMContentLoaded', function() {
             contentType: false,
             success: function(response) {
                 // Handle the response from the server-side script
-                console.log(response);
+                if (response === 'success') {
+                    alert("Registered successfully!");
+                } else {
+                    alert(response);
+                }
             }
         });
     });

@@ -23,8 +23,18 @@ class FormData(db.Model):
     lname = db.Column(db.String(255))
     phone = db.Column(db.String(255))
     email = db.Column(db.String(255))
+    vehicle = db.Column(db.String(255))
     year = db.Column(db.Integer)
     idpassport = db.Column(db.LargeBinary((2**32)-1))
+    carreg = db.Column(db.LargeBinary((2**32)-1))
+    photo1 = db.Column(db.LargeBinary((2**32)-1))
+    photo2 = db.Column(db.LargeBinary((2**32)-1))
+    PlateNo = db.Column(db.String(255))
+    make = db.Column(db.String(255))
+    model = db.Column(db.String(255))
+    color = db.Column(db.String(255))
+    price = db.Column(db.String(255)) 
+    condition = db.Column(db.String(255))
     submissionDate = db.Column(db.DateTime)
 
 with app.app_context():
@@ -34,8 +44,7 @@ with app.app_context():
 
 class Car(db.Model):
     __tablename__ = 'vehicle'
-
-    AdminId = db.Column(db.Integer, primary_key=True)
+    VehicleId = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(255))
     model = db.Column(db.String(255))
     year = db.Column(db.Integer)
@@ -44,6 +53,7 @@ class Car(db.Model):
     color = db.Column(db.String(255))
     photo1 = db.Column(db.LargeBinary((2**32)-1))
     photo2 = db.Column(db.LargeBinary((2**32)-1))
+    PlateNo = db.Column(db.String(255))
     available = db.Column(db.Boolean, default=True)
 
 with app.app_context():
@@ -83,26 +93,6 @@ class User(db.Model):
 with app.app_context():
     # Create all tables in the database which don't exist yet
     db.create_all()
-
-
-class photo(db.Model):
-    __tablename__ = 'photo'
-    CarId = db.Column(db.Integer, primary_key=True)
-    vehicle = db.Column(db.String(255))
-    year = db.Column(db.Integer)
-    carreg = db.Column(db.LargeBinary((2**32)-1))
-    photo1 = db.Column(db.LargeBinary((2**32)-1))
-    photo2 = db.Column(db.LargeBinary((2**32)-1))
-    submissionDate = db.Column(db.DateTime)
-    CustomerId = db.Column(db.Integer, db.ForeignKey('vregister.CustomerId'))
-    AdminId = db.Column(db.Integer, db.ForeignKey('vehicle.AdminId'))
-
-
-
-with app.app_context():
-    # Create all tables in the database which don't exist yet
-    db.create_all()
-
 
 class PaymentMethod(db.Model):
     __tablename__ = 'payment_methods'
@@ -227,6 +217,13 @@ def register():
             return 'Password and Confirm Password must be identical!'
     return render_template('AmdinRegistration.html')
 
+#manage-user for admin page
+@app.route('/manageuser')
+def manageuser():
+    users = User.query.all()
+    return render_template('manage-user.html', users=users)
+
+
 #route for handling booking
 
 @app.route('/search-vehicle', methods=['POST'])
@@ -303,40 +300,45 @@ def submit_form():
     carreg = request.files['carreg'].read()
     photo1 = request.files['photo1'].read()
     photo2 = request.files['photo2'].read()
-    # Get the current date and time
     currentDate = datetime.now()
+    PlateNo = request.form['PlateNo']
+    make = request.form['make']
+    model = request.form['model']
+    color = request.form['color']
+    price = request.form['price']
+    condition = request.form['condition']
+
+# Check if a FormData object with the same Plate number already exists in the database
+    existing_form_data = FormData.query.filter_by(PlateNo=PlateNo).first()
+
+    if existing_form_data:
+        # If a FormData object with the same Plate number already exists, return a message saying "Already registered"
+        return 'Already registered'
+    else:
+        # If a FormData object with the same Plate number does not exist, create a new FormData object with the form data
 
     # Create a new FormData object with the form data
-    form_data = FormData(
-        fname=fname,
-        mname=mname,
-        lname=lname,
-        phone=phone,
-        email=email,
-        idpassport=idpassport,
-        submissionDate=currentDate
-    )
+     form_data = FormData(
+         fname=fname,
+         mname=mname,
+         lname=lname,
+         phone=phone,
+         email=email,
+         idpassport=idpassport,
+         submissionDate=currentDate,
+         PlateNo=PlateNo,
+         make=make,
+         model=model,
+         color=color,
+         price=price,
+         condition=condition
+     )
 
 # Add the new FormData object to the database session and commit the changes
     db.session.add(form_data)
     db.session.commit()
 
-    return 'Data inserted successfully'
-   
-    Photo = photo(
-        year=year,
-        vehicle=vehicle,
-        carreg=carreg,
-        photo1=photo1,
-        photo2=photo2,
-        submissionDate=currentDate
-    )
-
-
-    db.session.add(photo)
-    db.session.commit()
-
-    return 'Data inserted successfully'
+    return 'Registered  successfully'
 
 
 @app.route('/submit_car', methods=['POST'])
@@ -347,24 +349,22 @@ def submit_car():
     condition = request.form['condition']
     color = request.form['color']
     price = request.form['price']
-
+    PlateNo = request.form['PlateNo']
     # Get the uploaded files for Car Photo 1 and Car Photo 2
     photo1 = request.files['photo1'].read()
     photo2 = request.files['photo2'].read()
+  
+    # Check if the same plate number is already registered
+    existing_car = Car.query.filter_by(PlateNo=PlateNo).first()
+    if existing_car:
+        return 'already exist'
 
+    else:
+       # Create a new Car object and add it to the database
+       car = Car(make=make, model=model, year=year, condition=condition, color=color, price=price, photo1=photo1, photo2=photo2)
+       db.session.add(car)
+       db.session.commit()
 
-    # Create a new Car object and add it to the database
-    car = Car(make=make, model=model, year=year, condition=condition, color=color, price=price, photo1=photo1, photo2=photo2)
-    db.session.add(car)
-    db.session.commit()
-
-    return 'Data inserted successfully'
-
-#manage-user for admin page 
-@app.route('/manageuser')
-def manageuser():
-    users = User.query.all()
-    return render_template('manage-user.html', users=users)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
