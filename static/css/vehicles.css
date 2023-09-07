@@ -35,28 +35,6 @@ select {
 	font-size: 16px;
 }
 
-
-<<<<<<< HEAD
-/* Hide all vehicle images by default */
-#sedan-image, #compact-image, #suv-image, #van-image {
-       	display: sedan;
-}
-
-.slider-container1 {
-    position: relative;
-    text-align: left;
-}
-
-.slider-container2 {
-    position: relative;
-    text-align: left;
-}
-
-.slide, .slide2 {
-    display: none;
-    max-width: 100%;
-    height: auto;
-}
-
-
+article {
+	boarder: none;
 }

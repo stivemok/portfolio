@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let condition = document.querySelector('#condition').value;
         let color = document.querySelector('#color').value;
         let price = document.querySelector('#price').value;
+	let plate = document.querySelector('#plate').value;
 
         // Get the values of the new form fields for Car Photo 1 and Car Photo 2
         let photo1 = document.querySelector('#photo1').files[0];
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('condition', condition);
         formData.append('color', color);
         formData.append('price', price);
+	formData.append('plate', plate);
 
         // Append the values of the new form fields for Car Photo 1 and Car Photo 2 to the FormData object
         if (photo1) {

@@ -1,53 +1,39 @@
-	const vehicleTypeSelect = document.getElementById('vehicle-type');
-        const sedanImage = document.getElementById('sedan-image');
-        const compactImage = document.getElementById('compact-image');
-        const suvImage = document.getElementById('suv-image');
-        const truckImage = document.getElementById('truck-image');
-        const vanImage = document.getElementById('van-image');
+let currentImageIndex = 0;
 
-        vehicleTypeSelect.addEventListener('change', () => {
-            const selectedVehicle = vehicleTypeSelect.value;
-            // Hide all vehicle images
-            sedanImage.style.display = 'none';
-            compactImage.style.display = 'none';
-            suvImage.style.display = 'none';
-            truckImage.style.display = 'none';
-            vanImage.style.display = 'none';
+// Initialize the slider with the first image and description
+        changeSlide(0);
 
-            // Show the selected vehicle image container
-            if (selectedVehicle === 'sedan') {
-                sedanImage.style.display = 'block';
-            } else if (selectedVehicle === 'compact') {
-                compactImage.style.display = 'block';
-            } else if (selectedVehicle === 'suv') {
-                suvImage.style.display = 'block';
-            } else if (selectedVehicle === 'truck') {
-                truckImage.style.display = 'block';
-            } else if (selectedVehicle === 'van') {
-                vanImage.style.display = 'block';
-            }
-        });
-	 //
-        var selectElement = document.getElementById("vehicle-type");
-        var displayElement = document.getElementById("sedan-image");
-
-        let slideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-
-function showSlide(n) {
-    if (n >= slides.length) {
-        slideIndex = 0;
-    } else if (n < 0) {
-        slideIndex = slides.length - 1;
+function changeSlide(direction) {
+  currentImageIndex += direction;
+  $.ajax({
+    url: '/get-images',
+    type: 'POST',
+    data: { index: currentImageIndex },
+    success: function(response) {
+      $('.slide1').attr('src', response.imageSrc1);
+      $('.slide2').attr('src', response.imageSrc2);
+      updateDescription(currentImageIndex);
     }
-
-    slides.forEach(slide => slide.style.display = 'none');
-    slides[slideIndex].style.display = 'block';
+  });
 }
 
-function changeSlide(n) {
-    slideIndex += n;
-    showSlide(slideIndex);
+function updateDescription(index) {
+  $.ajax({
+    url: '/get-vehicle-info',
+    type: 'POST',
+    data: { index: index },
+    success: function(response) {
+      $('.make').text(`Make: ${response.make}`);
+      $('.model').text(`Model: ${response.model}`);
+      $('.year').text(`Year: ${response.year}`);
+      $('.condition').text(`Condition: ${response.condition}`);
+      $('.color').text(`Color: ${response.color}`);
+      $('.price').text(`Price: ${response.price}`);
+    }
+  });
 }
 
-showSlide(slideIndex);
+function updateSlideAndDescription(direction) {
+  changeSlide(direction);
+}
+

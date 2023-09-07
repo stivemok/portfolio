@@ -11,7 +11,7 @@ from flask import url_for
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:hailmary@localhost/easy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy'
 db = SQLAlchemy(app)
 
 # Define a model for the database table
@@ -358,7 +358,7 @@ def submit_car():
     db.session.add(car)
     db.session.commit()
 
-    return {'success': True}
+    return 'Data inserted successfully'
 
 #manage-user for admin page 
 @app.route('/manageuser')
