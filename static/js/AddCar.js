@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let color = document.querySelector('#color').value;
         let price = document.querySelector('#price').value;
         let PlateNo = document.querySelector('#PlateNo').value;
-        // Get the values of the new form fields for Car Photo 1 and Car Photo 2
+        let vehicle = document.querySelector('#vehicle').value;
+	// Get the values of the new form fields for Car Photo 1 and Car Photo 2
         let photo1 = document.querySelector('#photo1').files[0];
         let photo2 = document.querySelector('#photo2').files[0];
 
@@ -20,7 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('condition', condition);
         formData.append('color', color);
         formData.append('price', price);
-        formData.append('PlateNo, PlateNo);
+        formData.append('PlateNo', PlateNo);
+	formData.append('vehicle', vehicle);
         // Append the values of the new form fields for Car Photo 1 and Car Photo 2 to the FormData object
         if (photo1) {
             formData.append('photo1', photo1, photo1.name);
@@ -48,3 +50,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+

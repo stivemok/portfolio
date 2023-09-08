@@ -54,8 +54,9 @@ class Car(db.Model):
     photo1 = db.Column(db.LargeBinary((2**32)-1))
     photo2 = db.Column(db.LargeBinary((2**32)-1))
     PlateNo = db.Column(db.String(255))
+    vehicle = db.Column(db.String(255))
     available = db.Column(db.Boolean, default=True)
-
+   
 with app.app_context():
     # Create all tables in the database which don't exist yet
     db.create_all()
@@ -162,11 +163,6 @@ def AddCar():
 @app.route('/admin')
 def admin():
     return render_template('AdminPage.html')
-
-@app.route('/AddCar')
-def addcar():
-    return render_template('AddCar.html')
-
 
 @app.route('/available-cars')
 def available_cars():
@@ -331,12 +327,40 @@ def submit_form():
          model=model,
          color=color,
          price=price,
+         vehicle=vehicle,
+         year=year,
+         carreg=carreg,
+         photo1=photo1,
+         photo2=photo2,
          condition=condition
      )
 
 # Add the new FormData object to the database session and commit the changes
     db.session.add(form_data)
     db.session.commit()
+
+# Check if a Car object with the same Plate number already exists in the database
+    existing_car = Car.query.filter_by(PlateNo=PlateNo).first()
+
+    if not existing_car:
+      # If a Car object with the same Plate number does not exist, create a new Car object with the form data
+
+         # Create a new Car object with the form data
+          new_car = Car(
+             make=make,
+             model=model,
+             year=year,
+             condition=condition,
+             color=color,
+             price=price,
+             photo1=photo1,
+             photo2=photo2,
+             PlateNo=PlateNo
+           )
+
+            # Add the new Car object to the database session and commit the changes
+          db.session.add(new_car)
+          db.session.commit()
 
     return 'Registered  successfully'
 
@@ -350,6 +374,7 @@ def submit_car():
     color = request.form['color']
     price = request.form['price']
     PlateNo = request.form['PlateNo']
+    vehicle = request.form['vehicle']
     # Get the uploaded files for Car Photo 1 and Car Photo 2
     photo1 = request.files['photo1'].read()
     photo2 = request.files['photo2'].read()
@@ -361,7 +386,16 @@ def submit_car():
 
     else:
        # Create a new Car object and add it to the database
-       car = Car(make=make, model=model, year=year, condition=condition, color=color, price=price, photo1=photo1, photo2=photo2)
+       car = Car(make=make,
+             model=model,
+             year=year,
+             condition=condition,
+             color=color,
+             price=price,
+             photo1=photo1,
+             photo2=photo2,
+             PlateNo= PlateNo)
+
        db.session.add(car)
        db.session.commit()
 
