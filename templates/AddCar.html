@@ -7,18 +7,6 @@
     <title>Car Information Form</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/easy">Home</a></li>
-                <li><a href="/vehicles">Vehicles</a></li>
-                <li><a href="/location">Locations</a></li>
-                <li><a href="/VehicelRegistration">Vehicle registration</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-        </nav>
-    </header>
-
     <h1>Car Information Form</h1>
     <form action="/submit_car" method="POST" enctype="multipart/form-data">
         <label for="make">Make:</label>
@@ -39,9 +27,6 @@
         <label for="price">Price:</label>
         <input type="text" name="price" id="price" required><br>
 
-	<label for="price">Plate(ID):</label>
-        <input type="text" name="plate" id="plate" required><br>
-
         <label for="photo1">Photo 1:</label>
         <input type="file" name="photo1" id="photo1" accept="image/*" required><br>
 
@@ -53,7 +38,6 @@
 
 
         <input type="submit" value="Submit">
-	<input type="delete" value="Delete">
     </form>
 <script src="../static/js/AddCar.js"></script>
 </body>
