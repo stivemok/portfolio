@@ -35,5 +35,6 @@ select {
 	font-size: 16px;
 }
 
-
+article {
+	boarder: none;
 }

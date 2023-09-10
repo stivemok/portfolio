@@ -11,7 +11,7 @@ from flask import url_for
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:hailmary@localhost/easy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy'
 db = SQLAlchemy(app)
 
 # Define a model for the database table
@@ -146,9 +146,9 @@ def VehicelRegistration():
 def about():
     return render_template('about.html')
 
-@app.route('/AmdinRegistration')
+@app.route('/AdminRegistration')
 def AmdinRegistration():
-    return render_template('AmdinRegistration.html')
+    return render_template('AdminRegistration.html')
 
 @app.route('/AddCar')
 def AddCar():
@@ -419,8 +419,8 @@ def submit_car():
 
        db.session.add(car)
        db.session.commit()
-
        return 'success'
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

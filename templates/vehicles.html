@@ -18,7 +18,26 @@
         </nav>
     </header>
 
+  <section id="sedan-image" class="vehicles">
+    <div class="slider-container1">
+      <button class="prev-button" onclick="changeSlide(-1)">Previous</button>
+      <img src=""  class="slide slide1" width="400" height="400">
+      <img src=""  class="slide slide2" width="400" height="400">
+      <button class="next-button" onclick="changeSlide(1)">Next</button>
+    </div>
+    <div class="description">
+      <h2>Description</h2>
+      <div class="make">Make: </div>
+      <div class="model">Model: </div>
+      <div class="year">Year: </div>
+      <div class="condition">Condition: </div>
+      <div class="color">Color: </div>
+      <div class="price">Price: </div>
+      <button type="book" class="btn">Book Vehicle</button>
+    </div>
+  </section>
 
+<<<<<<< HEAD
 <article>
   <div class="slider-container1">
     <button class="prev-button" onclick="changeSlide(-1)">Previous</button>
@@ -39,5 +58,14 @@
 </article>
 
 <script src="../static/js/Vehicle.js"></script>
+=======
+    <script>
+	$(document).ready(function() {
+            updateSlideAndDescription(1);
+    });
+    </script>
+    <script src="../static/js/Vehicle.js">
+    </script>
+>>>>>>> 803ecee6b4f522b2d3c363b36792609dc0bbc8be
   </body>
 </html>

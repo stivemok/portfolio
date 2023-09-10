@@ -21,3 +21,19 @@ nav a {
     text-decoration: none;
     color: darkblue;
 }
+
+body {
+    background-image: url('images/car.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    line-height: 1.6;
+    border-radius: 10px;
+
+  }
+
+ul li {
+    font-size: 25px;
+}

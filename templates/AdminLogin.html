@@ -2,23 +2,35 @@
 <html>
 <head>
     <title>Login Form</title>
+    <link href="../static/css/AdminLogin.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <header>
+      <nav>
+          <ul>
+            <li><a href="/easy">Home</a></li>
+            <li><a href="/vehicles">Vehicles</a></li>
+            <li><a href="/location">Locations</a></li>
+            <li><a href="/AdminLogin">Admin login</a></li>
+            <li><a href="/VehicelRegistration">Vehicle registration</a></li>
+          </ul>
+        </nav>
+  </header>
 </head>
 <body>
+    <h1>Admin Login</h1>
     <form class="login100-form">
         <label for="email">Email:</label><br>
         <input type="text" id="email" name="email"><br>
         <label for="pass">Password:</label><br>
         <input type="password" id="pass" name="pass"><br><br>
-        <input type="submit" value="Submit">
-    </form>
- <script src="../static/js/script.js"></script>
-        <div class="create-account">
-                <a class="create" href="/AmdinRegistration">
+        <input type="submit" value="LogIn">
+	<div class="create-account">
+                <a class="create" href="/AdminRegistration">
                         Create your Account
                 </a>
         </div>
-
+    </form>
+ <script src="../static/js/script.js"></script>
 </body>
 </html>
