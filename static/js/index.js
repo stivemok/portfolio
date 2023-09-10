@@ -19,12 +19,10 @@ $(document).ready(function() {
             contentType: 'application/json;charset=UTF-8',
             success: function(response) {
                 // handle successful response
-                if (response.status === 'error') {
-                    alert(response.message);
-                    window.location.href = '/available-cars';
-                } else if (response.status === 'success') {
-                    window.location.href = '/payment-methods';
-                    alert(response.message);
+                if (response === 'Booking already exists check the vehicle page') {
+                    alert(response);
+                } else {
+                    window.location.href = '/vehicles';
                 }
             },
             error: function(error) {

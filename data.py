@@ -72,12 +72,6 @@ class Booking(db.Model):
     dropoff_location = db.Column(db.String(255), nullable=False)
     vehicle_type = db.Column(db.String(255), nullable=False)
 
-    def __init__(self, pickup_date, pickup_location, dropoff_date, dropoff_location, vehicle_type):
-        self.pickup_date = pickup_date
-        self.pickup_location = pickup_location
-        self.dropoff_date = dropoff_date
-        self.dropoff_location = dropoff_location
-        self.vehicle_type = vehicle_type
 
 with app.app_context():
     # Create all tables in the database which don't exist yet
@@ -164,6 +158,10 @@ def AddCar():
 def admin():
     return render_template('AdminPage.html')
 
+@app.route('/booking')
+def booking():
+    return render_template('/BookVehicle.html')
+
 @app.route('/available-cars')
 def available_cars():
     cars = Car.query.filter_by(available=True).all()
@@ -232,20 +230,17 @@ def search_vehicle():
     vehicle_type = data['vehicle_type']
 
     # check if booking is available
-    booking = Booking.query.filter_by(pickup_date=pickup_date, pickup_location=pickup_location, dropoff_date=dropoff_date, dropoff_location=dropoff_location).first()
+    booking = Booking.query.filter_by(pickup_date=pickup_date,
+                                      pickup_location=pickup_location,
+                                      dropoff_date=dropoff_date,
+                                      dropoff_location=dropoff_location).first()
     if booking:
-        # booking already existsBB
+        # booking already exists
         available_cars = Car.query.filter_by(available=True).all()
-        available_cars_list = [car.to_dict() for car in available_cars]
-        return jsonify({'status': 'error', 'message': 'Already booked', 'available_cars': available_cars_list})
+        return  'Booking already exists check the vehicle page'
     else:
-        # create new booking
-        new_booking = Booking(pickup_date=pickup_date, pickup_location=pickup_location, dropoff_date=dropoff_date, dropoff_location=dropoff_location, vehicle_type=vehicle_type)
-        db.session.add(new_booking)
-        db.session.commit()
-        payment_methods = PaymentMethod.query.all()
-        payment_methods_list = [method.to_dict() for method in payment_methods]
-        return jsonify({'status': 'success', 'message': 'process payment method', 'payment_methods': payment_methods_list})
+        # redirect to vehicle page
+        return redirect(url_for('vehicles'))
 
 
 @app.route('/get-images', methods=['POST'])
@@ -277,6 +272,32 @@ def get_vehicle_info():
     else:
         return jsonify({'error': 'Car not found'})
 
+#habdle booking vehicle
+@app.route('/book-vehicle', methods=['POST'])
+def book_vehicle():
+    data = request.get_json()
+    pickup_date = datetime.strptime(data['pickup_date'], '%Y-%m-%d').date()
+    dropoff_date = datetime.strptime(data['dropoff_date'], '%Y-%m-%d').date()
+    booking = Booking.query.filter_by(
+        pickup_date=pickup_date,
+        pickup_location=data['pickup_location'],
+        dropoff_date=dropoff_date,
+        dropoff_location=data['dropoff_location'],
+        vehicle_type=data['vehicle_type']
+    ).first()
+    if booking:
+        return jsonify({'bookingExists': True})
+    else:
+        new_booking = Booking(
+            pickup_date=pickup_date,
+            pickup_location=data['pickup_location'],
+            dropoff_date=dropoff_date,
+            dropoff_location=data['dropoff_location'],
+            vehicle_type=data['vehicle_type']
+        )
+        db.session.add(new_booking)
+        db.session.commit()
+        return jsonify({'bookingSuccess': True})
 
 
 

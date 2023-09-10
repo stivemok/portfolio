@@ -1,3 +1,12 @@
+$(document).ready(function() {
+    $('.btn').on('click', function(event) {
+        event.preventDefault();
+
+        // Redirect to booking page
+        window.location.href = "/booking";
+    });
+});
+
 let currentImageIndex = 0;
 
 function changeSlide(direction) {
