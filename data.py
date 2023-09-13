@@ -11,7 +11,8 @@ from flask import url_for
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy'
+app.secret_key = 'secret'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:hailmary@localhost/easy'
 db = SQLAlchemy(app)
 
 # Define a model for the database table
@@ -137,6 +138,25 @@ def location():
 @app.route('/AdminLogin')
 def AdminLogin():
     return render_template('AdminLogin.html')
+#check if the provided email and password match
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.form['email']
+    password = request.form['password']
+    user = User.query.filter_by(email=email, password=password).first()
+    if user:
+        session['logged_in'] = True
+        return 'success'
+    else:
+        return 'failure'
+
+
+@app.route('/admin')
+def admin():
+    if 'logged_in' in session:
+        return render_template('AdminPage.html')
+    else:
+        return redirect(url_for('AdminLogin'))
 
 @app.route('/VehicelRegistration')
 def VehicelRegistration():
@@ -150,17 +170,23 @@ def about():
 def AmdinRegistration():
     return render_template('AdminRegistration.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('AdminLogin'))
+
 @app.route('/AddCar')
 def AddCar():
     return render_template('AddCar.html')
 
-@app.route('/admin')
-def admin():
-    return render_template('AdminPage.html')
-
 @app.route('/booking')
 def booking():
     return render_template('/BookVehicle.html')
+
+
+@app.route('/Orders')
+def Orders():
+    return render_template('/Orders.html')
 
 @app.route('/available-cars')
 def available_cars():
@@ -179,17 +205,6 @@ def process_payment():
     # Your code for processing the payment goes here
     return render_template('PaymentConfirmation.html')
 
-
-#check if the provided email and password match
-@app.route('/login', methods=['POST'])
-def login():
-    email = request.form['email']
-    password = request.form['password']
-    user = User.query.filter_by(email=email, password=password).first()
-    if user:
-        return 'success'
-    else:
-        return 'failure'
 
 #check if the password and comfirmpassword match and add new user in datanase
 @app.route('/register', methods=['GET', 'POST'])
@@ -298,6 +313,24 @@ def book_vehicle():
         db.session.add(new_booking)
         db.session.commit()
         return jsonify({'bookingSuccess': True})
+
+
+
+#handle to retrive all bookings
+@app.route('/all-bookings', methods=['GET'])
+def get_all_bookings():
+    bookings = Booking.query.all()
+    all_bookings = []
+    for booking in bookings:
+        booking_data = {
+            'pickup_date': booking.pickup_date.strftime('%Y-%m-%d'),
+            'pickup_location': booking.pickup_location,
+            'dropoff_date': booking.dropoff_date.strftime('%Y-%m-%d'),
+            'dropoff_location': booking.dropoff_location,
+            'vehicle_type': booking.vehicle_type
+        }
+        all_bookings.append(booking_data)
+    return jsonify({'bookings': all_bookings})
 
 
 

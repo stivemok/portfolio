@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookings</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>All Bookings</h1>
+    <div id="bookings"></div>
+
+    <script>
+        $(document).ready(function() {
+            $.getJSON('/all-bookings', function(data) {
+                var bookings = data['bookings'];
+                for (var i = 0; i < bookings.length; i++) {
+                    var booking = bookings[i];
+                    var bookingDiv = '<div>' +
+                        '<h2>Booking ' + (i+1) + '</h2>' +
+                        '<p>Pickup Date: ' + booking['pickup_date'] + '</p>' +
+                        '<p>Pickup Location: ' + booking['pickup_location'] + '</p>' +
+                        '<p>Dropoff Date: ' + booking['dropoff_date'] + '</p>' +
+                        '<p>Dropoff Location: ' + booking['dropoff_location'] + '</p>' +
+                        '<p>Vehicle Type: ' + booking['vehicle_type'] + '</p>' +
+                    '</div>';
+                    $('#bookings').append(bookingDiv);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

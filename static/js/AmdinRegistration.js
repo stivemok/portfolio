@@ -13,8 +13,9 @@ document.querySelector('.register100-form').addEventListener('submit', function(
             success: function(response) {
                 if (response === 'Email already taken!') {
                     alert('The email you entered is already taken. Please try again with a different email.');
-                } else if (response === 'Registration successful!') {
-                    alert('You have successfully registered!');
+                } else if (response.url) {
+                    // If the server responds with a URL, redirect to that URL
+                    window.location.href = response.url;
                 } else {
                     alert(response);
                 }

@@ -81,3 +81,24 @@ removePageLink.addEventListener('click', function(event) {
     event.preventDefault();
     // Add your code here to handle the "Remove a page from the website" action
 });
+
+// Select the logout link
+const logoutLink = document.querySelector('a[href="/logout"]');
+
+// Add event listener to the link
+logoutLink.addEventListener('click', function(event) {
+    event.preventDefault();
+    // Add your code here to handle the "Sign Out" action
+    // For example, you might want to make an AJAX request to the server-side logout route
+    fetch('/logout', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // If the logout was successful, redirect to the login page
+                window.location.href = '/login';
+            } else {
+                // If there was an error, display it
+                alert('Error logging out: ' + data.error);
+            }
+        });
+});
