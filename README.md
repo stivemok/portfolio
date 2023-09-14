@@ -38,3 +38,25 @@ Run the application using Python:
 python3 data.py or if you include python3 header you can use ./data.py
 
 This will start a server on localhost at port 5000. You can access it by going to http://localhost:5000/easy in your web browser.
+
+# Running the Tests
+
+1. Save the testing code to a separate Python file, for example test_data.py
+2. Run the tests using unittest:
+python -m unittest test_data.py
+
+# Application Structure
+The application includes several SQLAlchemy models:
+
+User: Represents a user in the system.
+Car: Represents a car available for rent.
+FormData: Represents form data submitted by users.
+Booking: Represents a vehicle booking.
+The application also includes several routes:
+
+/admin, /VehicelRegistration, /about, etc.: Render different pages of the website.
+/login, /register, etc.: Handle user authentication and registration.
+/submit-form, /submit_car, etc.: Handle form submissions and add new objects to the database.
+/get-vehicle-info, /book-vehicle, etc.: Retrieve data from the database and return it in a JSON response.
+
+
