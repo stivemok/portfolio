@@ -1,19 +1,22 @@
+"""Flask: a micro web framework to build web application
+   request: access incomming request data
+render_template: render HTML templetes with dynamic content for the web application"""
 from flask import Flask, request, render_template
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
-import base64
-from flask import session
-from flask import jsonify
-from flask import redirect
-from flask import url_for
+from flask_sqlalchemy import SQLAlchemy # ORM that simplifies database interactions
+from datetime import datetime # provides classes for dates & time
+import base64 # provides functions for encoding and decoding binary data as base64
+from flask import session # to store user data that persists across multiple requests
+from flask import jsonify # to create a JSON response from a python dictionary or other JSON-serializable data
+from flask import redirect # to reedirect the user to a different URL or route
+from flask import url_for # generates URL for the routes
 
 
 
-
-app = Flask(__name__)
-app.secret_key = 'secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:hailmary@localhost/easy'
-db = SQLAlchemy(app)
+# Initializing and configuring a Flask application
+app = Flask(__name__) # creates a Flaslk web application instance
+app.secret_key = 'secret' # sets a secret key for securing cookies and session data
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy' # configures the SQLAlchemy database URI
+db = SQLAlchemy(app) # initializes a SQLAlchemy database instance & associates it with the Flask application
 
 # Define a model for the database table
 class FormData(db.Model):
@@ -42,7 +45,7 @@ with app.app_context():
     # Create all tables in the database which don't exist yet
     db.create_all()
 
-
+# Define SQLAlchemy model class for the database table
 class Car(db.Model):
     __tablename__ = 'vehicle'
     VehicleId = db.Column(db.Integer, primary_key=True)
@@ -57,9 +60,9 @@ class Car(db.Model):
     PlateNo = db.Column(db.String(255))
     vehicle = db.Column(db.String(255))
     available = db.Column(db.Boolean, default=True)
-   
+
+# Create all tables in the database which don't exist yet
 with app.app_context():
-    # Create all tables in the database which don't exist yet
     db.create_all()
 
 
@@ -73,9 +76,8 @@ class Booking(db.Model):
     dropoff_location = db.Column(db.String(255), nullable=False)
     vehicle_type = db.Column(db.String(255), nullable=False)
 
-
+# Create all tables in the database which don't exist yet
 with app.app_context():
-    # Create all tables in the database which don't exist yet
     db.create_all()
 
 
@@ -86,10 +88,11 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
 
+# Create all tables in the database which don't exist yet
 with app.app_context():
-    # Create all tables in the database which don't exist yet
     db.create_all()
 
+# creating and populating a database table
 class PaymentMethod(db.Model):
     __tablename__ = 'payment_methods'
 
@@ -104,18 +107,18 @@ class PaymentMethod(db.Model):
             'description': self.description
         }
 
+# Create all tables in the database which don't exist yet
 with app.app_context():
-    # Create all tables in the database which don't exist yet
     db.create_all()
 
+# add payment methods to the database if they don't already exist
 with app.app_context():
-    # add payment methods to the database if they don't already exist
     db.create_all()
     if not PaymentMethod.query.filter_by(name='Credit Card').first():
         credit_card = PaymentMethod(name='Credit Card', description='Pay with your credit card')
         db.session.add(credit_card)
     if not PaymentMethod.query.filter_by(name='Debit Card').first():
-        debit_card = PaymentMethod(name='Debit Card', description='Pay with your debit card')        
+        debit_card = PaymentMethod(name='Debit Card', description='Pay with your debit card')
         db.session.add(debit_card)
     if not PaymentMethod.query.filter_by(name='PayPal').first():
         paypal = PaymentMethod(name='PayPal', description='Pay with your PayPal account')
@@ -123,6 +126,7 @@ with app.app_context():
     db.session.commit()
 
 
+# Flask routes in the web application
 @app.route('/easy')
 def home():
     return render_template('index.html')
@@ -138,6 +142,7 @@ def location():
 @app.route('/AdminLogin')
 def AdminLogin():
     return render_template('AdminLogin.html')
+
 #check if the provided email and password match
 @app.route('/login', methods=['POST'])
 def login():
@@ -202,11 +207,10 @@ def payment_methods():
 
 @app.route('/process-payment', methods=['POST'])
 def process_payment():
-    # Your code for processing the payment goes here
     return render_template('PaymentConfirmation.html')
 
 
-#check if the password and comfirmpassword match and add new user in datanase
+#check if the password and comfirmpassword match and add new user in database
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -234,7 +238,6 @@ def manageuser():
 
 
 #route for handling booking
-
 @app.route('/search-vehicle', methods=['POST'])
 def search_vehicle():
     data = request.get_json()
@@ -412,7 +415,7 @@ def submit_form():
              PlateNo=PlateNo
            )
 
-            # Add the new Car object to the database session and commit the changes
+          # Add the new Car object to the database session and commit the changes
           db.session.add(new_car)
           db.session.commit()
 
@@ -432,7 +435,7 @@ def submit_car():
     # Get the uploaded files for Car Photo 1 and Car Photo 2
     photo1 = request.files['photo1'].read()
     photo2 = request.files['photo2'].read()
-  
+
     # Check if the same plate number is already registered
     existing_car = Car.query.filter_by(PlateNo=PlateNo).first()
     if existing_car:
@@ -455,5 +458,6 @@ def submit_car():
        return 'success'
 
 
+# Run Flask web application
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
