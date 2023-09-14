@@ -48,15 +48,16 @@ python -m unittest test_data.py
 # Application Structure
 The application includes several SQLAlchemy models:
 
-. User: Represents a user in the system.
-. Car: Represents a car available for rent.
-. FormData: Represents form data submitted by users.
-. Booking: Represents a vehicle booking.
-The application also includes several routes:
+1. User: Represents a user in the system.
+2. Car: Represents a car available for rent.
+3. FormData: Represents form data submitted by users.
+4. Booking: Represents a vehicle booking.
 
-. /admin, /VehicelRegistration, /about, etc.: Render different pages of the website.
-. /login, /register, etc.: Handle user authentication and registration.
-. /submit-form, /submit_car, etc.: Handle form submissions and add new objects to the database.
-. /get-vehicle-info, /book-vehicle, etc.: Retrieve data from the database and return it in a JSON response.
+# The application also includes several routes:
+
+1. /admin, /VehicelRegistration, /about, etc.: Render different pages of the website.
+2. /login, /register, etc.: Handle user authentication and registration.
+3. /submit-form, /submit_car, etc.: Handle form submissions and add new objects to the database.
+4. /get-vehicle-info, /book-vehicle, etc.: Retrieve data from the database and return it in a JSON response.
 
 
