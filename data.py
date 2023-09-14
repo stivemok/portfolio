@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Flask: a micro web framework to build web application
    request: access incomming request data
 render_template: render HTML templetes with dynamic content for the web application"""
@@ -9,14 +10,13 @@ from flask import session # to store user data that persists across multiple req
 from flask import jsonify # to create a JSON response from a python dictionary or other JSON-serializable data
 from flask import redirect # to reedirect the user to a different URL or route
 from flask import url_for # generates URL for the routes
-
+from database import db, init_app
 
 
 # Initializing and configuring a Flask application
 app = Flask(__name__) # creates a Flaslk web application instance
 app.secret_key = 'secret' # sets a secret key for securing cookies and session data
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stivemok@localhost/easy' # configures the SQLAlchemy database URI
-db = SQLAlchemy(app) # initializes a SQLAlchemy database instance & associates it with the Flask application
+init_app(app)
 
 # Define a model for the database table
 class FormData(db.Model):
