@@ -22,11 +22,11 @@ This project is a Flask web application that includes SQLAlchemy models for a ca
 
 # Getting Started
 # Prerequisites
-. Python 3
-. pip
-. Flask
-. Flask-SQLAlchemy
-. Flask-Testing
+# Python 3
+# pip
+# Flask
+# Flask-SQLAlchemy
+# Flask-Testing
 You can install the necessary packages using pip:
 pip install flask flask_sqlalchemy flask_testing
 
