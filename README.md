@@ -72,3 +72,6 @@ The application includes several SQLAlchemy models:
 
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
+
+
+![homepage](https://github.com/stivemok/portfolio/assets/46189207/06dfb94a-a5fa-4869-a124-ecbbfb3abe4b)
