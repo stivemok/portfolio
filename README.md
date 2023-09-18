@@ -1,6 +1,6 @@
 
 # Easy Car Rental Website
-
+![homepage](https://github.com/stivemok/portfolio/assets/46189207/06dfb94a-a5fa-4869-a124-ecbbfb3abe4b)
 Welcome to the Easy Car Rental website! Our website offers a simple and convenient way to book rental cars, register your car for rental, and manage your account through our admin login. Here’s a brief overview of our main features:
 
 # Booking
@@ -68,6 +68,4 @@ The application includes several SQLAlchemy models:
 3. /submit-form, /submit_car, etc.: Handle form submissions and add new objects to the database.
 4. /get-vehicle-info, /book-vehicle, etc.: Retrieve data from the database and return it in a JSON response.
 
-## Screenshots
 
-![homepage](https://github.com/stivemok/portfolio/assets/46189207/06dfb94a-a5fa-4869-a124-ecbbfb3abe4b)
