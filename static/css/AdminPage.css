@@ -36,4 +36,9 @@ body {
 
 ul li {
     font-size: 25px;
+    color: white;
+}
+
+a {
+    color: white;
 }
