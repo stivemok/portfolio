@@ -43,7 +43,7 @@ This will start a server on localhost at port 5000. You can access it by going t
 
 1. Save the testing code to a separate Python file, for example test_data.py
 2. Run the tests using unittest:
-python -m unittest test_data.py
+python3 -m unittest test_data.py
 
 # Application Structure
 The application includes several SQLAlchemy models:
