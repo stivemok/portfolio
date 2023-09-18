@@ -1,6 +1,7 @@
 Flask==2.3.3
 Flask-MySQLdb==1.0.1
 Flask-SQLAlchemy==3.0.5
+Flask-Testing==0.8.1
 mysqlclient==2.1.1
 SQLAlchemy==2.0.20
 SQLAlchemy-Utils==0.41.1
