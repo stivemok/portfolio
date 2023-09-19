@@ -14,7 +14,7 @@ If you own a car that you’d like to rent out through our platform, you can eas
 Our admin login allows you to manage your account and rental activity on our website. You can view your upcoming reservations, update your personal information, and manage your car’s availability and rental rates if you’ve registered it on our platform.
 
 # About Page
-If you’d like to learn more about our company and our mission, please visit our About page. We’re dedicated to providing a simple and convenient car rental experience for our customers, and we’re always 
+If you’d like to learn more about our company and our mission, please visit our About page. We’re dedicated to providing a simple and convenient car rental experience for our customers. 
 
 # Flask Web Application and Unit Testing
 This project is a Flask web application that includes SQLAlchemy models for a car rental service. The application includes routes for handling user registration, vehicle information retrieval, vehicle booking, and form submission. The application also includes unit tests to ensure the functionality of the application.
